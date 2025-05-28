@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FF4 Menu</title>
+  <style>
+    @font-face {
+      font-family: 'PixelFont';
+      src:url('fonts/Final_Fantasy_IV_SNES.ttf');
+    }
+    body {
+      margin: 0;
+      font-family: 'PixelFont', monospace;
+      background-color: #000000;
+      color: #ffffff;
+      padding: 10px;
+    }
+    .menu-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 960px;
+      margin: auto;
+    }
+    #character-list {
+      background-color: #200080;
+      border: 3px solid #ffffff;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+    }
+    .card {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .portrait {
+      width: 100px;
+      height:100px;
+      object-fit: contain;
+      border: 2px solid #ffffff;
+      background-color: #000040;
+      image-rendering: pixelated;
+    }
+    .details {
+      font-size: 4rem;
+    }
+    .details div {
+      margin: 0;
+      line-height: 0.4;
+    }
+    .menu-options {
+      background-color: #200080;
+      border: 3px solid #ffffff;
+      padding: 0.5rem;
+      min-width: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-option {
+      background-color: #000040;
+      padding: 0.5rem;
+      border: 1px solid #ffffff;
+      font-size: 4rem;
+      margin-bottom: 0.3rem;
+      text-align: left;
+      color: #ffffff;
+    }
+    .footer {
+      margin-top: 10px;
+      background-color: #200080;
+      border: 3px solid #ffffff;
+      padding: 0.5rem;
+      max-width: 960px;
+      margin: 10px auto 0 auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 4rem;
+    }
+    .name {
+      display: inline-block;
+      min-width: 300px; /* adjust as needed */
+    }
+    .class {
+      margin-right: 0.01rem; /* or more if desired */
+    }
+
+    audio {
+      display: block;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center; font-size: 4rem;">Crown of the Oathbreaker</h1>
+  <audio controls loop>
+    <source src="music/prelude.ogg">
+  </audio>
+  <div class="menu-container">
+    <div id="character-list">
+      <div class="card">
+        <img class="portrait" src="portraits/eri.jpeg" alt="Eri">
+        <div class="details">
+          <div><span class="name">Eridesce</span><span class="class">Druid</span></div>
+	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 1</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 11/11</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 2/2</div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="portrait" src="portraits/fin.jpeg" alt="Fin">
+        <div class="details">
+          <div><span class="name">Fin</span><span class="class">Barbarian</span></div>
+	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 1</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 15/15</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 0/0</div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="portrait" src="portraits/kulak.png" alt="Kulak">
+        <div class="details">
+          <div><span class="name">Kulak</span><span class="class">Wizard</span></div>
+	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 1</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 8/8</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 0/0</div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="portrait" src="portraits/lockecamp.png" alt="Locke">
+        <div class="details">
+          <div><span class="name">Locke</span><span class="class">Rogue</span></div>
+	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 1</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 10/10</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 0/0</div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="portrait" src="portraits/torggo.jpeg" alt="Torggo">
+        <div class="details">
+          <div><span class="name">Torggo</span><span class="class">Cleric</span></div>
+	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 1</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 11/11</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 2/2</div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-options">
+      <div class="menu-option">Item</div>
+      <div class="menu-option">Magic</div>
+      <div class="menu-option">Log</div>
+      <div class="menu-option" style="opacity: 0.5;">Save</div>
+    </div>
+  </div>
+  <div class="footer">
+    <div id="game-time">Sessions: 0</div>
+    <div id="gp">0 GP</div>
+  </div>
+</body>
+</html>
