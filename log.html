@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adventure Log</title>
+  <style>
+    @font-face {
+      font-family: 'PixelFont';
+      src:url('fonts/Final_Fantasy_IV_SNES.ttf');
+    }
+    body {
+      margin: 0;
+      font-family: 'PixelFont', monospace;
+      background-color: #000000;
+      color: #ffffff;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+    }
+
+    .log-container {
+      background-color: #200080;
+      border: 3px solid #ffffff;
+      padding: 1rem;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .entry {
+      background-color: #000040;
+      border: 1px solid #ffffff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      white-space: pre-wrap; /* preserves line breaks */
+    }
+
+    .entry-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .entry-date {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 0.5rem;
+    }
+
+    a.back-link {
+      display: block;
+      margin-top: 2rem;
+      font-size: 2rem;
+      color: #ffffff;
+      text-decoration: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Adventure Log</h1>
+
+  <div class="log-container">
+    <div class="entry">
+      <div class="entry-title">Arrival at Stormwatch Keep</div>
+      <div class="entry-date">Session 1 - May 10, 2025</div>
+      We arrived at Stormwatch Keep under heavy fog. Torggo says the spirits are restless.
+      Eridesce found a torn map beneath the altar.
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">The Whispering Woods</div>
+      <div class="entry-date">Session 2 - May 17, 2025</div>
+      Strange voices haunted us through the trees. Deevey's torch sputtered out, yet no wind blew.
+      Fin swears he saw something move just beyond the firelight.
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">The Broken Pact</div>
+      <div class="entry-date">Session 3 - May 24, 2025</div>
+      We discovered an ancient oath carved into stone, shattered by time. 
+      Locke thinks the villagers are hiding something.
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to Menu</a>
+</body>
+</html>
