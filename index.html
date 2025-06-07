@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Crown of the Oathbreaker</title>
   <style>
     @font-face {
@@ -21,6 +21,11 @@
       background-color: #000000;
       color: #ffffff;
       padding: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 4rem;
     }
 
     .menu-container {
@@ -44,6 +49,7 @@
       display: flex;
       gap: 0.5rem;
       align-items: center;
+      background-color: #200080;
     }
 
     .portrait {
@@ -67,7 +73,7 @@
       background-color: #200080;
       border: 3px solid #ffffff;
       padding: 0.5rem;
-      min-width: 180px;
+      width: 180px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -109,7 +115,6 @@
       margin: 10px auto;
     }
 
-    /* Responsive design for mobile */
     @media (max-width: 768px) {
       .menu-container {
         flex-direction: column;
@@ -118,8 +123,8 @@
 
       .menu-options {
         width: 100%;
-        min-width: unset;
-        margin-top: 1rem;
+        max-width: 960px;
+        margin: 1rem auto 0;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
@@ -139,11 +144,9 @@
       .card {
         flex-direction: column;
         align-items: center;
-        text-align: center;
-        background-color: #000030;
         border: 1px solid #ffffff;
         padding: 0.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
       }
 
       .portrait {
@@ -153,12 +156,12 @@
 
       .details {
         font-size: 2rem;
-        margin-top: 0.5rem;
+        margin-top: 0.3rem;
       }
 
       .details div {
-        line-height: 1.2;
-        margin-bottom: 0.25rem;
+        line-height: 1.1;
+        margin-bottom: 0.2rem;
       }
 
       .footer {
@@ -175,7 +178,7 @@
   </style>
 </head>
 <body>
-  <h1 style="text-align:center; font-size: 4rem;">Crown of the Oathbreaker</h1>
+  <h1>Crown of the Oathbreaker</h1>
   <div class="menu-container">
     <div id="character-list">
       <div class="card">
