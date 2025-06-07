@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Crown of the Oathbreaker</title>
   <style>
     @font-face {
       font-family: 'PixelFont';
-      src:url('fonts/Final_Fantasy_IV_SNES.ttf');
+      src: url('fonts/Final_Fantasy_IV_SNES.ttf');
     }
+
     a {
       text-decoration: none;
       color: inherit;
     }
+
     body {
       margin: 0;
       font-family: 'PixelFont', monospace;
@@ -20,12 +22,14 @@
       color: #ffffff;
       padding: 10px;
     }
+
     .menu-container {
       display: flex;
       justify-content: space-between;
       max-width: 960px;
       margin: auto;
     }
+
     #character-list {
       background-color: #200080;
       border: 3px solid #ffffff;
@@ -35,26 +39,30 @@
       gap: 0.5rem;
       flex: 1;
     }
+
     .card {
       display: flex;
       gap: 0.5rem;
       align-items: center;
     }
+
     .portrait {
       width: 100px;
-      height:100px;
+      height: 100px;
       object-fit: contain;
       border: 2px solid #ffffff;
       background-color: #000040;
-
     }
+
     .details {
       font-size: 4rem;
     }
+
     .details div {
       margin: 0;
       line-height: 0.4;
     }
+
     .menu-options {
       background-color: #200080;
       border: 3px solid #ffffff;
@@ -64,6 +72,7 @@
       flex-direction: column;
       justify-content: space-between;
     }
+
     .menu-option {
       background-color: #000040;
       padding: 0.5rem;
@@ -73,6 +82,7 @@
       text-align: left;
       color: #ffffff;
     }
+
     .footer {
       margin-top: 10px;
       background-color: #200080;
@@ -84,17 +94,73 @@
       justify-content: space-between;
       font-size: 4rem;
     }
+
     .name {
       display: inline-block;
-      min-width: 300px; /* adjust as needed */
+      min-width: 300px;
     }
+
     .class {
-      margin-right: 0.01rem; /* or more if desired */
+      margin-right: 0.01rem;
     }
 
     audio {
       display: block;
       margin: 10px auto;
+    }
+
+    /* Responsive design for mobile */
+    @media (max-width: 768px) {
+      .menu-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .menu-options {
+        width: 100%;
+        min-width: unset;
+        margin-top: 1rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .menu-option {
+        flex: 1 1 45%;
+        text-align: center;
+        font-size: 2rem;
+        margin: 0.3rem;
+      }
+
+      .card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .portrait {
+        width: 80px;
+        height: 80px;
+      }
+
+      .details {
+        font-size: 2.5rem;
+      }
+
+      .details div {
+        line-height: 0.8;
+      }
+
+      .footer {
+        flex-direction: column;
+        align-items: center;
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
     }
   </style>
 </head>
@@ -106,7 +172,7 @@
         <img class="portrait" src="portraits/kulak_filter.png" alt="Deevey">
         <div class="details">
           <div><span class="name">Deevey</span><span class="class">Wizard</span></div>
-	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 14/14</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 3/3</div>
         </div>
@@ -115,7 +181,7 @@
         <img class="portrait" src="portraits/eri_filter.png" alt="Eri">
         <div class="details">
           <div><span class="name">Eridesce</span><span class="class">Wild Shaper</span></div>
-	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 19/19</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 3/3</div>
         </div>
@@ -124,7 +190,7 @@
         <img class="portrait" src="portraits/fin_filter.png" alt="Fin">
         <div class="details">
           <div><span class="name">Fin</span><span class="class">Giant</span></div>
-	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 25/25</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 0/0</div>
         </div>
@@ -133,7 +199,7 @@
         <img class="portrait" src="portraits/locke_head.png" alt="Locke">
         <div class="details">
           <div><span class="name">Locke</span><span class="class">Treasure Hunter</span></div>
-	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 17/17</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 0/0</div>
         </div>
@@ -142,7 +208,7 @@
         <img class="portrait" src="portraits/torggo_filter.png" alt="Torggo">
         <div class="details">
           <div><span class="name">Torggo</span><span class="class">Skeleton's Bane</span></div>
-	  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 2</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 19/19</div>
           <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 3/3</div>
         </div>
