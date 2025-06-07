@@ -113,7 +113,7 @@
     @media (max-width: 768px) {
       .menu-container {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
       }
 
       .menu-options {
@@ -132,10 +132,18 @@
         margin: 0.3rem;
       }
 
+      #character-list {
+        padding: 0.5rem;
+      }
+
       .card {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        background-color: #000030;
+        border: 1px solid #ffffff;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
       }
 
       .portrait {
@@ -144,11 +152,13 @@
       }
 
       .details {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-top: 0.5rem;
       }
 
       .details div {
-        line-height: 0.8;
+        line-height: 1.2;
+        margin-bottom: 0.25rem;
       }
 
       .footer {
