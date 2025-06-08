@@ -36,7 +36,7 @@
     }
 
     #character-list {
-      background-color: #000000;
+      background-color: #200080;
       border: 3px solid #ffffff;
       padding: 0.5rem;
       display: flex;
@@ -49,7 +49,7 @@
       display: flex;
       gap: 0.5rem;
       align-items: center;
-      background-color: #000000;
+      background-color: #200080;
     }
 
     .portrait {
@@ -70,7 +70,7 @@
     }
 
     .menu-options {
-      background-color: #000000;
+      background-color: #200080;
       border: 3px solid #ffffff;
       padding: 0.5rem;
       width: 180px;
@@ -87,7 +87,6 @@
       margin-bottom: 0.3rem;
       text-align: left;
       color: #ffffff;
-      position: relative;
     }
 
     .menu-link {
@@ -98,7 +97,7 @@
 
     .footer {
       margin-top: 10px;
-      background-color: #000000;
+      background-color: #200080;
       border: 3px solid #ffffff;
       padding: 0.5rem;
       max-width: 960px;
@@ -120,6 +119,17 @@
     audio {
       display: block;
       margin: 10px auto;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
 
     @media (max-width: 768px) {
@@ -238,17 +248,9 @@
       <div class="menu-option">Item</div>
       <div class="menu-option"><a href="magic.html" class="menu-link">Magic</a></div>
       <div class="menu-option"><a href="log.html" class="menu-link">Log</a></div>
-      <div class="menu-option" style="opacity: 0.5; position: relative;">
-        <span style="display: inline-block; width: 100%;">Save</span>
-        <a href="save.html" style="
-          position: absolute;
-          top: 0;
-          right: 0;
-          height: 100%;
-          width: 3ch;
-          opacity: 0;
-          z-index: 1;
-        ">Her</a>
+      <div class="menu-option" style="position: relative;">
+        <span>Save</span>
+        <a href="saveher.html" class="visually-hidden">Her</a>
       </div>
     </div>
   </div>
