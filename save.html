@@ -18,28 +18,38 @@
     p {
       font-size: 1.25rem;
       color: #555555;
+      margin-bottom: 2rem;
+    }
+    img {
+      image-rendering: pixelated;
+      width: 64px;
+      height: 64px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <audio id="bgMusic" autoplay muted>
+  <h1>404 Not Found</h1>
+  <p>She can't be saved at this time.</p>
+
+  <!-- Clickable chest image -->
+  <img id="chest" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAAB9Nw2LAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtUlEQVR4nO2RwQ2AIAwEF6/9L3tb1dDFGceZIMLD2AVIRPyNzNcFPOOHrAogd7aUAZwRaBch5WEp1GgPmgDLXRIUr4qZn6yP0pMxX8YOEYxnzMp4PE9EbnjJQ4gdC5aHpHaUkmVUb1sB1GLZh+2sSL4l2kPZ+FDZhWJpS6EdZAkVG8WxDwKVZ5ZSkMCV2MghMB3ZCrkJBvO6IRlUQAAAAASUVORK5CYII=" alt="Locked Chest">
+
+  <audio id="bgMusic">
     <source src="music/intro.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <h1>404 Not Found</h1>
-  <p>She can't be saved at this time.</p>
-
   <script>
-    document.addEventListener('click', function () {
+    document.getElementById('chest').addEventListener('click', function () {
       const audio = document.getElementById('bgMusic');
-      audio.muted = false;
       audio.play().catch(e => {
         console.warn('Audio play failed:', e);
       });
-    }, { once: true });
+    });
   </script>
 </body>
 </html>
+
 
 
