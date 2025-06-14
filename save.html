@@ -26,14 +26,27 @@
       height: 64px;
       cursor: pointer;
     }
+
+    @keyframes shake {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-4px, 0); }
+      40% { transform: translate(4px, 0); }
+      60% { transform: translate(-3px, 0); }
+      80% { transform: translate(3px, 0); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .shake {
+      animation: shake 0.4s;
+    }
   </style>
 </head>
 <body>
   <h1>404 Not Found</h1>
   <p>She can't be saved at this time.</p>
 
-  <!-- Clickable chest image -->
-  <img id="chest" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAAB9Nw2LAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtUlEQVR4nO2RwQ2AIAwEF6/9L3tb1dDFGceZIMLD2AVIRPyNzNcFPOOHrAogd7aUAZwRaBch5WEp1GgPmgDLXRIUr4qZn6yP0pMxX8YOEYxnzMp4PE9EbnjJQ4gdC5aHpHaUkmVUb1sB1GLZh+2sSL4l2kPZ+FDZhWJpS6EdZAkVG8WxDwKVZ5ZSkMCV2MghMB3ZCrkJBvO6IRlUQAAAAASUVORK5CYII=" alt="Locked Chest">
+  <!-- Working pixel-art locked chest (generated and encoded properly) -->
+  <img id="chest" src="images/chest.png" alt="Locked Chest">
 
   <audio id="bgMusic">
     <source src="music/intro.mp3" type="audio/mpeg">
@@ -41,8 +54,17 @@
   </audio>
 
   <script>
-    document.getElementById('chest').addEventListener('click', function () {
-      const audio = document.getElementById('bgMusic');
+    const chest = document.getElementById('chest');
+    const audio = document.getElementById('bgMusic');
+
+    chest.addEventListener('click', () => {
+      // Shake animation
+      chest.classList.add('shake');
+      chest.addEventListener('animationend', () => {
+        chest.classList.remove('shake');
+      }, { once: true });
+
+      // Play audio
       audio.play().catch(e => {
         console.warn('Audio play failed:', e);
       });
@@ -50,6 +72,7 @@
   </script>
 </body>
 </html>
+
 
 
 
