@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Party Items - Crown of the Oathbreaker</title>
+  <link rel="stylesheet" href="styles.css" /> <!-- Optional: use a shared CSS file -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'PixelFont', monospace;
+      background-color: #000;
+      color: #fff;
+      padding: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 4rem;
+    }
+
+    .items-container {
+      max-width: 960px;
+      margin: auto;
+      background-color: #200080;
+      border: 3px solid #fff;
+      padding: 1rem;
+    }
+
+    .item {
+      border-bottom: 1px solid #ffffff;
+      padding: 0.5rem 0;
+      font-size: 2rem;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .item {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Party Inventory</h1>
+  <div class="items-container">
+    <div class="item">
+      <div class="item-name">Potion of Healing</div>
+      <div>Restores 2d4+2 HP. Quantity: 3</div>
+    </div>
+    <div class="item">
+      <div class="item-name">Scroll of Fireball</div>
+      <div>Cast Fireball once. Requires attunement by a spellcaster.</div>
+    </div>
+    <div class="item">
+      <div class="item-name">Gold Ring</div>
+      <div>Worth 25 GP. Unidentified enchantment.</div>
+    </div>
+  </div>
+</body>
+</html>
