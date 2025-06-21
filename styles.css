@@ -8,6 +8,15 @@ a {
   color: inherit;
 }
 
+a.back-link {
+  display: block;
+  margin-top: 2rem;
+  font-size: 2rem;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+ }
+
 body {
   margin: 0;
   font-family: 'PixelFont', monospace;
@@ -212,13 +221,4 @@ audio {
   .item {
     font-size: 1.5rem;
   }
-
-  a.back-link {
-  display: block;
-  margin-top: 2rem;
-  font-size: 2rem;
-  color: #ffffff;
-  text-decoration: none;
-  text-align: center;
- }
 }
