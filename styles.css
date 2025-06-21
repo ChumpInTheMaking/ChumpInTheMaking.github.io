@@ -1,0 +1,215 @@
+@font-face {
+  font-family: 'PixelFont';
+  src: url('fonts/Final_Fantasy_IV_SNES.ttf');
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: 'PixelFont', monospace;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 10px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 4rem;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 960px;
+  margin: auto;
+}
+
+#character-list {
+  background-color: #200080;
+  border: 3px solid #ffffff;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.card {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  background-color: #200080;
+}
+
+.portrait {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border: 2px solid #ffffff;
+  background-color: #000040;
+}
+
+.details {
+  font-size: 4rem;
+}
+
+.details div {
+  margin: 0;
+  line-height: 0.4;
+}
+
+.menu-options {
+  background-color: #200080;
+  border: 3px solid #ffffff;
+  padding: 0.5rem;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-option {
+  background-color: #000040;
+  padding: 0.5rem;
+  border: 1px solid #ffffff;
+  font-size: 4rem;
+  margin-bottom: 0.3rem;
+  text-align: left;
+  color: #ffffff;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: #ffffff;
+  display: inline;
+}
+
+.footer {
+  margin-top: 10px;
+  background-color: #200080;
+  border: 3px solid #ffffff;
+  padding: 0.5rem;
+  max-width: 960px;
+  margin: 10px auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 4rem;
+}
+
+.name {
+  display: inline-block;
+  min-width: 300px;
+}
+
+.class {
+  margin-right: 0.01rem;
+}
+
+audio {
+  display: block;
+  margin: 10px auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Items page */
+.items-container {
+  max-width: 960px;
+  margin: auto;
+  background-color: #200080;
+  border: 3px solid #fff;
+  padding: 1rem;
+}
+
+.item {
+  border-bottom: 1px solid #ffffff;
+  padding: 0.5rem 0;
+  font-size: 2rem;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .menu-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .menu-options {
+    width: 100%;
+    max-width: 960px;
+    margin: 1rem auto 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .menu-option {
+    flex: 1 1 45%;
+    text-align: center;
+    font-size: 2rem;
+    margin: 0.3rem;
+  }
+
+  #character-list {
+    padding: 0.5rem;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ffffff;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .portrait {
+    width: 80px;
+    height: 80px;
+  }
+
+  .details {
+    font-size: 2rem;
+    margin-top: 0.3rem;
+  }
+
+  .details div {
+    line-height: 1.1;
+    margin-bottom: 0.2rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .item {
+    font-size: 1.5rem;
+  }
+}
