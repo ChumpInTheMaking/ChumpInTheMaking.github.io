@@ -149,14 +149,6 @@ audio {
   font-size: 2rem;
 }
 
-.item:last-child {
-  border-bottom: none;
-}
-
-.item-name {
-  font-weight: bold;
-}
-
 /* Responsive styles */
 @media (max-width: 768px) {
   .menu-container {
