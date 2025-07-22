@@ -9,6 +9,7 @@
       font-family: 'PixelFont';
       src:url('fonts/Final_Fantasy_IV_SNES.ttf');
     }
+
     body {
       margin: 0;
       font-family: 'PixelFont', monospace;
@@ -37,6 +38,23 @@
       padding-bottom: 0.5rem;
     }
 
+    .spell-group {
+      margin-bottom: 1rem;
+    }
+
+    .spell-level {
+      font-size: 2rem;
+      cursor: pointer;
+      background-color: #000060;
+      padding: 0.5rem;
+      border: 1px solid #ffffff;
+    }
+
+    .spell-list {
+      display: none;
+      margin-top: 0.5rem;
+    }
+
     .spell {
       background-color: #000040;
       padding: 0.5rem;
@@ -58,45 +76,105 @@
 <body>
   <h1>Locke's Observed Magic</h1>
 
+  <!-- Deevey -->
   <div class="character-section">
     <div class="character-name">Deevey</div>
-    <div class="spell">Fire Bolt</div>
-    <div class="spell">Toll the Dead</div>
-    <div class="spell">Unseen Servant</div>
-    <div class="spell">Thunderwave</div>
-    <div class="spell">Magic Missile</div>
-    <div class="spell">Shield</div>
-    <div class="spell">Comprehend Languages</div>
-    <div class="spell">Identify</div>
-    <div class="spell">Detect Magic</div>
-    <div class="spell">Sleep</div>
-    <div class="spell">Misty Step</div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Cantrips ▼</div>
+      <div class="spell-list">
+        <div class="spell">Fire Bolt</div>
+        <div class="spell">Toll the Dead</div>
+      </div>
+    </div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Level 1 ▼</div>
+      <div class="spell-list">
+        <div class="spell">Unseen Servant</div>
+        <div class="spell">Thunderwave</div>
+        <div class="spell">Magic Missile</div>
+        <div class="spell">Shield</div>
+        <div class="spell">Comprehend Languages</div>
+        <div class="spell">Identify</div>
+        <div class="spell">Detect Magic</div>
+        <div class="spell">Sleep</div>
+      </div>
+    </div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Level 2 ▼</div>
+      <div class="spell-list">
+        <div class="spell">Misty Step</div>
+      </div>
+    </div>
   </div>
 
+  <!-- Eridesce -->
   <div class="character-section">
     <div class="character-name">Eridesce</div>
-    <div class="spell">Starry Wisp</div>
-    <div class="spell">Shillelagh</div>
-    <div class="spell">Toll the Dead</div>
-    <div class="spell">Guidance</div>
-    <div class="spell">Thunderwave</div>
-    <div class="spell">Goodberry</div>
-    <div class="spell">Shield</div>
-    <div class="spell">Healing Word</div>
-    <div class="spell">Ice Knife</div>
-    <div class="spell">Speak With Animals</div>
-    <div class="spell">Find Traps</div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Cantrips ▼</div>
+      <div class="spell-list">
+        <div class="spell">Starry Wisp</div>
+        <div class="spell">Shillelagh</div>
+        <div class="spell">Toll the Dead</div>
+        <div class="spell">Guidance</div>
+      </div>
+    </div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Level 1 ▼</div>
+      <div class="spell-list">
+        <div class="spell">Thunderwave</div>
+        <div class="spell">Goodberry</div>
+        <div class="spell">Shield</div>
+        <div class="spell">Healing Word</div>
+        <div class="spell">Ice Knife</div>
+        <div class="spell">Speak With Animals</div>
+        <div class="spell">Find Traps</div>
+      </div>
+    </div>
   </div>
 
+  <!-- Torggo -->
   <div class="character-section">
     <div class="character-name">Torggo</div>
-    <div class="spell">Word of Radiance</div>
-    <div class="spell">Sacred Flame</div>
-    <div class="spell">Healing Word</div>
-    <div class="spell">Detect Poison and Disease</div>
-    <div class="spell">Hold Person</div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Cantrips ▼</div>
+      <div class="spell-list">
+        <div class="spell">Word of Radiance</div>
+        <div class="spell">Sacred Flame</div>
+      </div>
+    </div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Level 1 ▼</div>
+      <div class="spell-list">
+        <div class="spell">Healing Word</div>
+        <div class="spell">Detect Poison and Disease</div>
+      </div>
+    </div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Level 2 ▼</div>
+      <div class="spell-list">
+        <div class="spell">Hold Person</div>
+      </div>
+    </div>
   </div>
 
   <a href="index.html" class="back-link">← Back to Menu</a>
+
+  <script>
+    function toggleSpells(element) {
+      const spellList = element.nextElementSibling;
+      const isVisible = spellList.style.display === 'block';
+      spellList.style.display = isVisible ? 'none' : 'block';
+      element.textContent = element.textContent.replace(isVisible ? '▲' : '▼', isVisible ? '▼' : '▲');
+    }
+  </script>
 </body>
 </html>
