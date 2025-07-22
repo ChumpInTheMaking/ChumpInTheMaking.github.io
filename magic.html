@@ -81,7 +81,7 @@
     <div class="character-name">Deevey</div>
 
     <div class="spell-group">
-      <div class="spell-level" onclick="toggleSpells(this)">Cantrips ▼</div>
+      <div class="spell-level" onclick="toggleSpells(this)">Cantrips</div>
       <div class="spell-list">
         <div class="spell">Fire Bolt</div>
         <div class="spell">Toll the Dead</div>
@@ -89,7 +89,7 @@
     </div>
 
     <div class="spell-group">
-      <div class="spell-level" onclick="toggleSpells(this)">Level 1 ▼</div>
+      <div class="spell-level" onclick="toggleSpells(this)">Level 1</div>
       <div class="spell-list">
         <div class="spell">Unseen Servant</div>
         <div class="spell">Thunderwave</div>
@@ -103,7 +103,7 @@
     </div>
 
     <div class="spell-group">
-      <div class="spell-level" onclick="toggleSpells(this)">Level 2 ▼</div>
+      <div class="spell-level" onclick="toggleSpells(this)">Level 2</div>
       <div class="spell-list">
         <div class="spell">Misty Step</div>
       </div>
@@ -115,7 +115,7 @@
     <div class="character-name">Eridesce</div>
 
     <div class="spell-group">
-      <div class="spell-level" onclick="toggleSpells(this)">Cantrips ▼</div>
+      <div class="spell-level" onclick="toggleSpells(this)">Cantrips</div>
       <div class="spell-list">
         <div class="spell">Starry Wisp</div>
         <div class="spell">Shillelagh</div>
@@ -125,7 +125,7 @@
     </div>
 
     <div class="spell-group">
-      <div class="spell-level" onclick="toggleSpells(this)">Level 1 ▼</div>
+      <div class="spell-level" onclick="toggleSpells(this)">Level 1</div>
       <div class="spell-list">
         <div class="spell">Thunderwave</div>
         <div class="spell">Goodberry</div>
@@ -136,6 +136,13 @@
         <div class="spell">Find Traps</div>
       </div>
     </div>
+
+    <div class="spell-group">
+      <div class="spell-level" onclick="toggleSpells(this)">Level 2</div>
+      <div class="spell-list">
+        <div class="spell">Misty Step</div>
+      </div>
+    </div>
   </div>
 
   <!-- Torggo -->
@@ -143,7 +150,7 @@
     <div class="character-name">Torggo</div>
 
     <div class="spell-group">
-      <div class="spell-level" onclick="toggleSpells(this)">Cantrips ▼</div>
+      <div class="spell-level" onclick="toggleSpells(this)">Cantrips</div>
       <div class="spell-list">
         <div class="spell">Word of Radiance</div>
         <div class="spell">Sacred Flame</div>
@@ -151,7 +158,7 @@
     </div>
 
     <div class="spell-group">
-      <div class="spell-level" onclick="toggleSpells(this)">Level 1 ▼</div>
+      <div class="spell-level" onclick="toggleSpells(this)">Level 1</div>
       <div class="spell-list">
         <div class="spell">Healing Word</div>
         <div class="spell">Detect Poison and Disease</div>
@@ -159,7 +166,7 @@
     </div>
 
     <div class="spell-group">
-      <div class="spell-level" onclick="toggleSpells(this)">Level 2 ▼</div>
+      <div class="spell-level" onclick="toggleSpells(this)">Level 2</div>
       <div class="spell-list">
         <div class="spell">Hold Person</div>
       </div>
@@ -173,7 +180,6 @@
       const spellList = element.nextElementSibling;
       const isVisible = spellList.style.display === 'block';
       spellList.style.display = isVisible ? 'none' : 'block';
-      element.textContent = element.textContent.replace(isVisible ? '▲' : '▼', isVisible ? '▼' : '▲');
     }
   </script>
 </body>
