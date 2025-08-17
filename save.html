@@ -7,36 +7,44 @@
     html, body {
       height: 100%;
       margin: 0;
-      color: #ffffff;
+      background-color: #001030; /* fill letterboxing space */
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    body {
-      position: relative;          /* so child positioning works */
-      background-color: #001030;
-      background-image: url('images/locke_rooftop.png');
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: contain;    /* keep full image visible */
+    .image-container {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .image-container img.bg {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;   /* keep full image visible */
     }
 
     .content {
       position: absolute;
-      bottom: 75%;                  /* move content to bottom */
-      left: 25%;
-      transform: translateX(-50%); /* keep it centered horizontally */
-      text-align: center;
+      top: 0;
+      left: 0;
+      padding: 1rem;
+      text-align: left;
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      font-size: 2rem;
+      margin: 0 0 0.5rem 0;
     }
     p {
-      font-size: 1.25rem;
-      color: #ffffff;
-      margin-bottom: 2rem;
+      font-size: 1rem;
+      color: #555555;
+      margin: 0 0 1rem 0;
     }
-    img {
+    img#chest {
       image-rendering: pixelated;
       width: 64px;
       height: 64px;
@@ -58,10 +66,16 @@
   </style>
 </head>
 <body>
-  <div class="content">
-    <h1>501 Not Found</h1>
-    <p>She can't be saved at this time.</p>
-    <img id="chest" src="images/chest.png" alt="Locked Chest">
+  <div class="image-container">
+    <!-- background image now as an <img> -->
+    <img class="bg" src="images/locke_rooftop.png" alt="Background">
+
+    <!-- content anchored to top-left of image -->
+    <div class="content">
+      <h1>501 Not Found</h1>
+      <p>She can't be saved at this time.</p>
+      <img id="chest" src="images/chest.png" alt="Locked Chest">
+    </div>
   </div>
 
   <audio id="bgMusic">
