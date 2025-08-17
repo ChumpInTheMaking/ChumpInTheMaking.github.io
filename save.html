@@ -21,8 +21,8 @@
 
     .image-wrapper img.bg {
       display: block;
-      width: 100%;      /* scale image to wrapper */
-      height: auto;     /* keep aspect ratio */
+      width: 100%;
+      height: auto;
     }
 
     .content {
@@ -51,13 +51,14 @@
       border-radius: 50%;
       background: rgba(255,255,255,0.8);
       opacity: 0;
-      pointer-events: none;
+      pointer-events: auto; /* enable clicks */
 
       /* position relative to image */
       top: 14.8%;
       left: 47.8%;
       transform: translate(-50%, -50%);
       animation: glow 3s ease-in-out infinite;
+      cursor: pointer;
     }
 
     @keyframes glow {
@@ -69,12 +70,24 @@
 <body>
   <div class="image-wrapper">
     <img class="bg" src="images/locke_rooftop.png" alt="Background">
-    <div class="glow-spot"></div>
+    <div class="glow-spot" id="glowSpot"></div>
 
     <div class="content">
       <h1>501 Not Found</h1>
       <p>She can't be saved at this time.</p>
     </div>
   </div>
+
+  <audio id="myAudio" src="music/mol.mp3"></audio>
+
+  <script>
+    const glowSpot = document.getElementById('glowSpot');
+    const audio = document.getElementById('myAudio');
+
+    glowSpot.addEventListener('click', () => {
+      audio.currentTime = 0;  // start from beginning
+      audio.play();
+    });
+  </script>
 </body>
 </html>
