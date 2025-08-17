@@ -10,16 +10,20 @@
     }
 
     body {
-      display: flex;
-      flex-direction: column;     /* stack h1, p, img vertically */
-      justify-content: center;    /* center vertically */
-      align-items: center;        /* center horizontally */
-
-      background-color: #001030;  /* fill empty borders */
+      position: relative;          /* so child positioning works */
+      background-color: #001030;
       background-image: url('images/locke_rooftop.png');
       background-repeat: no-repeat;
       background-position: center center;
-      background-size: contain;   /* keep full image visible */
+      background-size: contain;    /* keep full image visible */
+    }
+
+    .content {
+      position: absolute;
+      bottom: 5%;                  /* move content to bottom */
+      left: 50%;
+      transform: translateX(-50%); /* keep it centered horizontally */
+      text-align: center;
     }
 
     h1 {
@@ -53,11 +57,11 @@
   </style>
 </head>
 <body>
-  <h1>501 Not Found</h1>
-  <p>She can't be saved at this time.</p>
-
-  <!-- Working pixel-art locked chest -->
-  <img id="chest" src="images/chest.png" alt="Locked Chest">
+  <div class="content">
+    <h1>501 Not Found</h1>
+    <p>She can't be saved at this time.</p>
+    <img id="chest" src="images/chest.png" alt="Locked Chest">
+  </div>
 
   <audio id="bgMusic">
     <source src="music/intro1.mp3" type="audio/mpeg">
@@ -83,8 +87,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
