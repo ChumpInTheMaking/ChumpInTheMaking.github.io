@@ -46,22 +46,23 @@
       margin: 0;
     }
 
-    /* star styling */
-    .star {
+    /* glow spot */
+    .glow-spot {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: white;
+      width: 20px;           /* size of glow */
+      height: 20px;
       border-radius: 50%;
-      opacity: 0.6;
+      background: rgba(255, 255, 255, 0.8);
+      opacity: 0;
+      pointer-events: none;  /* doesn’t block clicks */
     }
 
     @keyframes glow {
-      0%, 100% { opacity: 0.6; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.6); }
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
     }
 
-    .glow {
+    .active-glow {
       animation: glow 1s ease-in-out;
     }
   </style>
@@ -75,27 +76,22 @@
       <p>She can't be saved at this time.</p>
     </div>
 
-    <!-- example stars positioned at different spots -->
-    <div class="star" style="top: 20%; left: 30%;"></div>
-    <div class="star" style="top: 40%; left: 70%;"></div>
-    <div class="star" style="top: 60%; left: 50%;"></div>
-    <div class="star" style="top: 25%; left: 80%;"></div>
-    <div class="star" style="top: 75%; left: 20%;"></div>
+    <!-- glow spot: position it where you want on the image -->
+    <div class="glow-spot" id="glowSpot" style="top: 40%; left: 60%;"></div>
   </div>
 
   <script>
-    const stars = document.querySelectorAll('.star');
+    const glowSpot = document.getElementById('glowSpot');
 
-    function randomGlow() {
-      const star = stars[Math.floor(Math.random() * stars.length)];
-      star.classList.add('glow');
-      star.addEventListener('animationend', () => {
-        star.classList.remove('glow');
+    function triggerGlow() {
+      glowSpot.classList.add('active-glow');
+      glowSpot.addEventListener('animationend', () => {
+        glowSpot.classList.remove('active-glow');
       }, { once: true });
     }
 
-    // glow a random star every 2 seconds
-    setInterval(randomGlow, 2000);
+    // trigger glow every 2 seconds
+    setInterval(triggerGlow, 2000);
   </script>
 </body>
 </html>
