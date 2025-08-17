@@ -4,11 +4,24 @@
   <meta charset="UTF-8">
   <title>501 Not Found</title>
   <style>
-    body {
-      background: url('images/locke_rooftop.png') no-repeat center center;
-      background-size: contain;     /* show whole image */
-      background-color: #001030;    /* fill rest of screen with solid color */
+    html, body {
+      height: 100%;
+      margin: 0;
     }
+
+    body {
+      display: flex;
+      flex-direction: column;     /* stack h1, p, img vertically */
+      justify-content: center;    /* center vertically */
+      align-items: center;        /* center horizontally */
+
+      background-color: #001030;  /* fill empty borders */
+      background-image: url('images/locke_rooftop.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;   /* keep full image visible */
+    }
+
     h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
@@ -43,7 +56,7 @@
   <h1>501 Not Found</h1>
   <p>She can't be saved at this time.</p>
 
-  <!-- Working pixel-art locked chest (generated and encoded properly) -->
+  <!-- Working pixel-art locked chest -->
   <img id="chest" src="images/chest.png" alt="Locked Chest">
 
   <audio id="bgMusic">
@@ -70,6 +83,7 @@
   </script>
 </body>
 </html>
+
 
 
 
