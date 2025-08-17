@@ -15,17 +15,25 @@
     }
 
     .image-container {
-      position: relative;
-      display: inline-block;
       max-width: 100%;
-      max-height: 100%;
+      width: 800px; /* optional max width */
     }
 
-    .image-container img.bg {
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;   /* keep full image visible */
+    /* maintain aspect ratio of the background image */
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 aspect ratio (H/W * 100%) */
+      overflow: hidden;
+    }
+
+    .image-wrapper img.bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* keep full image visible */
     }
 
     .content {
@@ -49,12 +57,16 @@
     /* glow spot */
     .glow-spot {
       position: absolute;
-      width: 5px;           /* size of glow */
+      width: 5px;
       height: 5px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.8);
       opacity: 0;
-      pointer-events: none;  /* doesn’t block clicks */
+      pointer-events: none;
+      /* converted from pixel coords (733,151) for 1024x576 image */
+      top: 14.15%;
+      left: 47.85%;
+      transform: translate(-50%, -50%);
     }
 
     @keyframes glow {
@@ -69,15 +81,18 @@
 </head>
 <body>
   <div class="image-container">
-    <img class="bg" src="images/locke_rooftop.png" alt="Background">
+    <div class="image-wrapper">
+      <img class="bg" src="images/locke_rooftop.png" alt="Background">
 
-    <div class="content">
-      <h1>501 Not Found</h1>
-      <p>She can't be saved at this time.</p>
+      <!-- content anchored to top-left of image -->
+      <div class="content">
+        <h1>501 Not Found</h1>
+        <p>She can't be saved at this time.</p>
+      </div>
+
+      <!-- glow spot positioned exactly at (733,151) -->
+      <div class="glow-spot" id="glowSpot"></div>
     </div>
-
-    <!-- glow spot: position it where you want on the image -->
-    <div class="glow-spot" id="glowSpot" style="top: 14.25%; left: 47.5%;"></div>
   </div>
 
   <script>
@@ -95,3 +110,4 @@
   </script>
 </body>
 </html>
+
