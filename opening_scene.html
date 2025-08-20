@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FFIV-Style Scroll Scene</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Press Start 2P', monospace;
+      background: url('images/background.png') no-repeat center center;
+      background-size: cover;
+      position: relative;
+      
+    }
+
+    /* --- Start Scene Button --- */
+    .start-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      font-size: 20px;
+      padding: 20px 40px;
+      border: 2px solid white;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: opacity 1s ease;
+      z-index: 10;
+    }
+
+    .start-box.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* --- Scroll Container --- */
+    .scroll-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%; /* Only top half scrolls */
+      overflow: hidden;
+      visibility: hidden;
+
+      /* Fades out near top AND bottom */
+      mask-image: linear-gradient(to top, transparent 0%, black 10%, black 80%, transparent 90%);
+      -webkit-mask-image: linear-gradient(to top, transparent 0%, black 10%, black 80%, transparent 90%);
+    }
+
+    .scroll-text {
+      position: absolute;
+      bottom: -100%; /* Start off-screen */
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 25px;
+      padding: 0 1rem;
+      /* Animation will be triggered via JS */
+    }
+
+    @keyframes scroll {
+      from {
+        bottom: -100%;
+      }
+      to {
+        bottom: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Start Scene Button -->
+  <div class="start-box" id="start-box">Start Scene</div>
+
+  <!-- Scrolling Text Container -->
+  <div class="scroll-container" id="scroll-container">
+    <div class="scroll-text" id="scroll-text">
+      <p>The kingdom of Baron...</p>
+      <p>Once renowned for its honor...</p>
+      <p>Now commands its airships for conquest.</p>
+      <p>Haunted by doubt, Cecil begins his journey...</p>
+      <p>Toward redemption, and a fate yet unknown.</p>
+    </div>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" src="music/pro.mp3" preload="auto" loop></audio>
+
+  <script>
+    const startBox = document.getElementById('start-box');
+    const scrollContainer = document.getElementById('scroll-container');
+    const scrollText = document.getElementById('scroll-text');
+    const audio = document.getElementById('bg-music');
+
+    startBox.addEventListener('click', () => {
+      // Fade out start button
+      startBox.classList.add('hidden');
+
+      // Start music immediately
+      audio.play().catch(() => {});
+
+      // Make scroll container visible
+      scrollContainer.style.visibility = 'visible';
+
+      // Start scrolling after 10 seconds
+      setTimeout(() => {
+        scrollText.style.animation = 'scroll 40s linear forwards';
+      }, 8000);
+    });
+  </script>
+</body>
+</html>
