@@ -9,13 +9,13 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100vh;
+      height: 100%;
       overflow: hidden;
       font-family: 'Press Start 2P', monospace;
-      background: url('images/background.png') no-repeat center center;
-      background-size: cover;
+      background: url('images/purplerain3.png') no-repeat center center;
       position: relative;
-      
+      background-color: rgba(14, 0, 17, 0.8);
+      background-size: auto 100%;
     }
 
     /* --- Start Scene Button --- */
@@ -24,7 +24,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(58, 4, 46, 0.8);
       color: white;
       font-size: 20px;
       padding: 20px 40px;
@@ -50,6 +50,8 @@
       height: 50%; /* Only top half scrolls */
       overflow: hidden;
       visibility: hidden;
+      opacity: 0; /* fade from transparent */
+      transition: opacity 2s ease;
 
       /* Fades out near top AND bottom */
       mask-image: linear-gradient(to top, transparent 0%, black 10%, black 80%, transparent 90%);
@@ -58,21 +60,19 @@
 
     .scroll-text {
       position: absolute;
-      bottom: -100%; /* Start off-screen */
       width: 100%;
       text-align: center;
       color: white;
-      font-size: 25px;
+      font-size: 35px;
       padding: 0 1rem;
-      /* Animation will be triggered via JS */
     }
 
     @keyframes scroll {
       from {
-        bottom: -100%;
+        bottom: var(--start, 0px);
       }
       to {
-        bottom: 100%;
+        bottom: var(--end, 100%);
       }
     }
   </style>
@@ -84,16 +84,52 @@
   <!-- Scrolling Text Container -->
   <div class="scroll-container" id="scroll-container">
     <div class="scroll-text" id="scroll-text">
-      <p>The kingdom of Baron...</p>
-      <p>Once renowned for its honor...</p>
-      <p>Now commands its airships for conquest.</p>
-      <p>Haunted by doubt, Cecil begins his journey...</p>
-      <p>Toward redemption, and a fate yet unknown.</p>
+      <p>Thus, the city of Onadbyr was thrown</p>
+      <p>into chaos, its king slain, its queen</p>
+      <p>transformed, becoming a creature that</p>
+      <p>mirrored her ugly heart.</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>A group of misfit adventuers departs</p>
+      <p>the troubled city, filled with a</p>
+      <p>desperate hope to purge the corrupted</p>
+      <p>crown of its curse.</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>What malady has gripped the land of</p>
+      <p>Aglarion? Why has an evil purple rain</p>
+      <p>begun to fall? Why have fiends replaced</p>
+      <p>the good knights of Onadbyr?</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>A wizard... </p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;A giant...</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A dwarf....</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A child...</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;And a rogue...</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>Upon these five the fate of Onadbyr</p>
+      <p>yet hangs in the balance...</p>
+      <p>Will they cleanse the</p>
+      <p>crown of the oathbreaker?</p>
     </div>
   </div>
 
   <!-- Background Music -->
-  <audio id="bg-music" src="music/pro.mp3" preload="auto" loop></audio>
+  <audio id="bg-music" src="music/prologue_extended.mp3" preload="auto" loop></audio>
 
   <script>
     const startBox = document.getElementById('start-box');
@@ -108,14 +144,30 @@
       // Start music immediately
       audio.play().catch(() => {});
 
-      // Make scroll container visible
-      scrollContainer.style.visibility = 'visible';
-
-      // Start scrolling after 10 seconds
+      // Wait a few seconds, then start scroll
       setTimeout(() => {
-        scrollText.style.animation = 'scroll 40s linear forwards';
-      }, 8000);
+        scrollContainer.style.visibility = 'visible';
+        scrollContainer.style.opacity = '1';
+
+        // Calculate start/end based on actual sizes
+        const containerHeight = scrollContainer.offsetHeight;
+        const textHeight = scrollText.scrollHeight;
+
+        // Start just below bottom of container
+        const startPos = -textHeight;
+        // End just above top of container
+        const endPos = containerHeight;
+
+        // Apply CSS vars
+        scrollText.style.setProperty('--start', startPos + 'px');
+        scrollText.style.setProperty('--end', endPos + 'px');
+
+        // Trigger animation
+        scrollText.style.animation = 'scroll 85s linear forwards';
+      }, 15000);
     });
   </script>
 </body>
 </html>
+
+
