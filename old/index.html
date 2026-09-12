@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crown of the Oathbreaker</title>
+  <style>
+    @font-face {
+      font-family: 'PixelFont';
+      src: url('fonts/Final_Fantasy_IV_SNES.ttf');
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'PixelFont', monospace;
+      background-color: #000000;
+      color: #ffffff;
+      padding: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 4rem;
+    }
+
+    .menu-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    #character-list {
+      background-color: #000852;
+      border: 3px solid #ffffff;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
+      flex: 1;
+    }
+
+    .card {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      background-color: #000852;
+    }
+
+    .portrait {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      background-color: #000852;
+    }
+
+    .details {
+      font-size: 4rem;
+    }
+
+    .details div {
+      margin: 0;
+      line-height: 0.4;
+    }
+
+    .menu-options {
+      background-color: #000852;
+      border: 3px solid #ffffff;
+      padding: 0.5rem;
+      width: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-option {
+      background-color: #000040;
+      padding: 0.5rem;
+      border: 1px solid #ffffff;
+      font-size: 4rem;
+      margin-bottom: 0.3rem;
+      text-align: left;
+      color: #ffffff;
+    }
+
+    .menu-link {
+      text-decoration: none;
+      color: #ffffff;
+      display: inline;
+    }
+
+    .footer {
+      margin-top: 10px;
+      background-color: #000852;
+      border: 3px solid #ffffff;
+      padding: 0.5rem;
+      max-width: 960px;
+      margin: 10px auto 0 auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 4rem;
+    }
+
+    .name {
+      display: inline-block;
+      min-width: 300px;
+    }
+
+    .class {
+      margin-right: 0.01rem;
+    }
+
+    audio {
+      display: block;
+      margin: 10px auto;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    @media (max-width: 768px) {
+      .menu-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .menu-options {
+        width: 94%;
+        max-width: 700px;
+        margin: 1rem auto 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .menu-option {
+        flex: 1 1 45%;
+        text-align: left;
+        font-size: 2rem;
+        margin: 0.3rem;
+      }
+
+      #character-list {
+        padding: 0.5rem;
+      }
+
+      .card {
+        flex-direction: row;
+        align-items: center;
+        border: 1px solid #ffffff;
+        padding: 0.5rem;
+        
+      }
+
+      .portrait {
+        width: 80px;
+        height: 80px;
+      }
+
+      .details {
+        font-size: 2rem;
+      }
+
+      .footer {
+        flex-direction: column;
+        align-items: center;
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Crown of the Oathbreaker</h1>
+  <div class="menu-container">
+    <div id="character-list">
+      <div class="card">
+        <img class="portrait" src="portraits/deevey_old.jpg" alt="Deevey">
+        <div class="details">
+          <div><span class="name">Deevey</span><span class="class">Black Wizard</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 8</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 50/50</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 12/12</div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="portrait" src="portraits/eri_old.jpg" alt="Eri">
+        <div class="details">
+          <div><span class="name">Eridesce</span><span class="class">Caller</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 8</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 67/67</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 12/12</div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="portrait" src="portraits/fin_old.jpg" alt="Fin">
+        <div class="details">
+          <div><span class="name">Fin</span><span class="class">Berserker</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 8</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 85/85</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 0/0</div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="portrait" src="portraits/locke_old.png" alt="Locke">
+        <div class="details">
+          <div><span class="name">Locke</span><span class="class">Treasure Hunter</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 8</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 59/59</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 0/0</div>
+        </div>
+      </div>
+      <div class="card">
+        <img class="portrait" src="portraits/torggo_old.jpg" alt="Torggo">
+        <div class="details">
+          <div><span class="name">Torggo</span><span class="class">White Wizard</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Level</span> 8</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">HP</span> 67/67</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name">Spells</span> 12/12</div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-options">
+      <div class="menu-option"><a href="items.html" class="menu-link">Items</a></div>
+      <div class="menu-option"><a href="magic.html" class="menu-link">Magic</a></div>
+      <div class="menu-option"><a href="log.html" class="menu-link">Log</a></div>
+      <div class="menu-option"><a href="opening_scene.html" class="menu-link">Prologue</a></div>
+      <div class="menu-option"><a href="coffee_break.html" class="menu-link">Break</a></div>
+      <div class="menu-option" style="opacity: 0.5;">
+        Save<a href="save.html" style="color: transparent; margin-left: -0.2rem;">Her</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div id="game-time">Sessions: 22 </div>
+    <div id="gp">1019 GP</div>
+  </div>
+</body>
+</html>
