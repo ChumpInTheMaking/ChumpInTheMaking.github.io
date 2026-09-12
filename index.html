@@ -203,10 +203,16 @@
   .status-cell{
     padding:12px 16px;
     font-size:16px;
+    border-right:2px solid var(--border-inner);
+    border-bottom:2px solid var(--border-inner);
   }
 
-  .status-cell:first-child{
-    border-right:2px solid var(--border-inner);
+  .status-cell:nth-child(2n){
+    border-right:none;
+  }
+
+  .status-cell:nth-last-child(-n+2){
+    border-bottom:none;
   }
 
   .status-label{
