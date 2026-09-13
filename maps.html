@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Red Wings — Maps</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+  :root{
+    --panel-top:#1a1f4d;
+    --panel-bottom:#0a0e2e;
+    --border-outer:#f5e6b8;
+    --border-inner:#8a6d2f;
+    --text-main:#f4f0e2;
+    --text-dim:#a9a7c9;
+    --accent-gold:#f0c85a;
+    --divider:#3a3f7a;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    min-height:100%;
+    background:#05061a;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(60,50,120,0.5), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(30,60,90,0.4), transparent 60%);
+    font-family:'VT323', monospace;
+    color:var(--text-main);
+    padding:24px;
+  }
+
+  .frame{
+    width:100%;
+    max-width:920px;
+    margin:0 auto;
+  }
+
+  .back-link{
+    display:inline-block;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:16px;
+    margin-bottom:14px;
+    border-bottom:1px solid transparent;
+  }
+
+  .back-link:hover{
+    color:var(--accent-gold);
+    border-bottom-color:var(--accent-gold);
+  }
+
+  .campaign-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    letter-spacing:1px;
+    color:var(--accent-gold);
+    text-align:center;
+    margin:0 0 18px;
+    text-shadow:2px 2px 0 #000;
+  }
+
+  .campaign-sub{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:16px;
+    margin:-14px 0 20px;
+  }
+
+  .maps-board{
+    border:3px solid var(--border-outer);
+    outline:3px solid var(--border-inner);
+    outline-offset:-6px;
+    border-radius:4px;
+    background:linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+    box-shadow:0 0 0 6px #000, 0 20px 40px rgba(0,0,0,0.6);
+    padding:18px;
+  }
+
+  .maps-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:14px;
+  }
+
+  .map-card{
+    display:flex;
+    flex-direction:column;
+    border:1px solid var(--divider);
+    border-radius:4px;
+    background:rgba(255,255,255,0.02);
+    overflow:hidden;
+    text-decoration:none;
+    color:var(--text-main);
+    transition:border-color 0.15s ease, transform 0.1s ease;
+  }
+
+  .map-card:hover,
+  .map-card:focus-visible{
+    border-color:var(--accent-gold);
+    outline:none;
+    transform:translateY(-2px);
+  }
+
+  .map-thumb{
+    width:100%;
+    aspect-ratio:4/3;
+    background:radial-gradient(circle at 35% 30%, #3a3f7a, #14183a);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--text-dim);
+    font-size:13px;
+    overflow:hidden;
+  }
+
+  .map-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .map-info{
+    padding:10px 12px 12px;
+  }
+
+  .map-name{
+    font-size:18px;
+    color:var(--text-main);
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:6px;
+  }
+
+  .map-type{
+    font-size:12px;
+    color:var(--accent-gold);
+    white-space:nowrap;
+  }
+
+  .map-blurb{
+    font-size:14px;
+    color:var(--text-dim);
+    margin-top:2px;
+    line-height:1.3;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:14px;
+    margin-top:16px;
+  }
+
+  @media (max-width:700px){
+    .maps-grid{ grid-template-columns:1fr 1fr; }
+  }
+
+  @media (max-width:460px){
+    .maps-grid{ grid-template-columns:1fr; }
+    .campaign-title{ font-size:11px; }
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <a class="back-link" href="index.html">&larr; Back to Party</a>
+  <h1 class="campaign-title">Red Wings</h1>
+  <p class="campaign-sub">— Maps —</p>
+
+  <div class="maps-board">
+    <div class="maps-grid">
+
+      <a class="map-card" href="images/maps/baron_map.png" target="_blank">
+        <div class="map-thumb"><img src="images/maps/baron_map.png" alt="Kingdom of Baron map" onerror="this.parentElement.textContent='No image yet'"></div>
+        <div class="map-info">
+          <div class="map-name">Kingdom of Baron <span class="map-type">Region</span></div>
+          <div class="map-blurb">Your home - the Airship Kingdom.</div>
+        </div>
+      </a>
+
+      
+
+    </div>
+  </div>
+
+  <footer>Click a map to open the full-size image in a new tab.</footer>
+</div>
+</body>
+</html>
