@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Red Wings — Captain Harvey</title>
+<title>Red Wings — Lee</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
   :root{
-    --panel-top:#2a1f4d;
-    --panel-bottom:#150e2e;
+    --panel-top:#1a1f4d;
+    --panel-bottom:#0a0e2e;
     --border-outer:#f5e6b8;
     --border-inner:#8a6d2f;
     --text-main:#f4f0e2;
     --text-dim:#a9a7c9;
     --accent-gold:#f0c85a;
-    --accent-sidekick:#c9a6f5;
     --hp-green:#7fd858;
     --ac-blue:#7ec4e8;
     --divider:#3a3f7a;
@@ -44,11 +43,11 @@
     margin-bottom:14px;
     border-bottom:1px solid transparent;
   }
-  .back-link:hover{ color:var(--accent-sidekick); border-bottom-color:var(--accent-sidekick); }
+  .back-link:hover{ color:var(--accent-gold); border-bottom-color:var(--accent-gold); }
 
   .panel{
-    border:3px dashed var(--border-outer);
-    outline:3px dashed var(--border-inner);
+    border:3px solid var(--border-outer);
+    outline:3px solid var(--border-inner);
     outline-offset:-6px;
     border-radius:4px;
     background:linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
@@ -70,31 +69,18 @@
     height:90px;
     flex:none;
     border-radius:50%;
-    border:3px solid var(--accent-sidekick);
+    border:3px solid var(--accent-gold);
     overflow:hidden;
-    background:radial-gradient(circle at 35% 30%, #6e4f9e, #241a4a);
+    background:radial-gradient(circle at 35% 30%, #4a4f9e, #1c2050);
   }
   .portrait img{ width:100%; height:100%; object-fit:cover; display:block; }
 
   .bio-name{
     font-family:'Press Start 2P', monospace;
     font-size:16px;
-    color:var(--accent-sidekick);
+    color:var(--accent-gold);
     text-shadow:2px 2px 0 #000;
     margin-bottom:6px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-
-  .sidekick-tag{
-    font-family:'VT323', monospace;
-    font-size:13px;
-    color:var(--accent-sidekick);
-    border:1px solid var(--accent-sidekick);
-    border-radius:3px;
-    padding:1px 8px;
-    letter-spacing:0.5px;
   }
 
   .bio-class{ font-size:16px; color:var(--text-dim); margin-bottom:6px; }
@@ -110,7 +96,7 @@
   .bio-section h2{
     font-family:'Press Start 2P', monospace;
     font-size:11px;
-    color:var(--accent-sidekick);
+    color:var(--accent-gold);
     letter-spacing:0.5px;
     margin:0 0 8px;
   }
@@ -129,35 +115,31 @@
 
   <div class="panel">
     <div class="bio-header">
-      <div class="portrait"><img src="images/captain_harvey.png" alt="Captain Harvey portrait"></div>
+      <div class="portrait"><img src="images/roland_head.png" alt="Roland portrait"></div>
       <div>
-        <div class="bio-name">Captain Harvey <span class="sidekick-tag">Temporary</span></div>
-        <div class="bio-class">Captain of the Red Wings · Level 8</div>
+        <div class="bio-name">Roland</div>
+        <div class="bio-class">Dark Knight · Level 3</div>
         <div class="stat-row">
-          <span class="stat-label">Age</span><span class="hp-val">53</span>
-          <span class="stat-label">Height</span><span class="ac-val">6'2"</span>
-          <span class="stat-label">Weight</span><span class="ac-val">194</span>
+          <span class="stat-label">Age</span><span class="hp-val">35</span>
+          <span class="stat-label">Height</span><span class="ac-val">6'0"</span>
+          <span class="stat-label">Weight</span><span class="ac-val">180</span>
         </div>
       </div>
     </div>
 
     <div class="bio-section">
       <h2>Background</h2>
-      <p>Write Captain Harvey's backstory here — his history commanding the Red Wings, and how the party came to travel with him.</p>
+      <p>Write Lee's backstory here — where they're from, how they ended up with the Red Wings, and what shaped them before the campaign started.</p>
     </div>
 
     <div class="bio-section">
       <h2>Personality</h2>
-      <p>A few lines on how Harvey acts at the table — his quirks, how he talks, what drives him.</p>
+      <p>A few lines on how Lee acts at the table — their quirks, how they talk, what drives them, what scares them.</p>
     </div>
 
     <div class="bio-section">
-      <h2>Hits:</h2>
-      <p>Black coffee, efficiency</p>
-    </div>
-    <div class="bio-section">
-      <h2>Misses:</h2>
-      <p>Smiling, incompetence</p>
+      <h2>Notes</h2>
+      <p>Anything ongoing: relationships with other party members, unresolved plot threads, secrets, or things the DM should remember.</p>
     </div>
   </div>
 </div>
