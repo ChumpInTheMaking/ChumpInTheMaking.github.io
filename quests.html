@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Red Wings — Quest Log</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+  :root{
+    --panel-top:#1a1f4d;
+    --panel-bottom:#0a0e2e;
+    --border-outer:#f5e6b8;
+    --border-inner:#8a6d2f;
+    --text-main:#f4f0e2;
+    --text-dim:#a9a7c9;
+    --accent-gold:#f0c85a;
+    --accent-side:#7ec4e8;
+    --divider:#3a3f7a;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    min-height:100%;
+    background:#05061a;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(60,50,120,0.5), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(30,60,90,0.4), transparent 60%);
+    font-family:'VT323', monospace;
+    color:var(--text-main);
+    padding:24px;
+  }
+
+  .frame{
+    width:100%;
+    max-width:820px;
+    margin:0 auto;
+  }
+
+  .back-link{
+    display:inline-block;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:16px;
+    margin-bottom:14px;
+    border-bottom:1px solid transparent;
+  }
+  .back-link:hover{ color:var(--accent-gold); border-bottom-color:var(--accent-gold); }
+
+  .campaign-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    letter-spacing:1px;
+    color:var(--accent-gold);
+    text-align:center;
+    margin:0 0 18px;
+    text-shadow:2px 2px 0 #000;
+  }
+
+  .campaign-sub{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:16px;
+    margin:-14px 0 20px;
+  }
+
+  .panel{
+    border:3px solid var(--border-outer);
+    outline:3px solid var(--border-inner);
+    outline-offset:-6px;
+    border-radius:4px;
+    background:linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+    box-shadow:0 0 0 6px #000, 0 20px 40px rgba(0,0,0,0.6);
+    padding:18px;
+    margin-bottom:18px;
+  }
+
+  .section-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:12px;
+    letter-spacing:0.5px;
+    margin:0 0 14px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--divider);
+  }
+
+  .section-title.main{ color:var(--accent-gold); }
+  .section-title.side{ color:var(--accent-side); }
+
+  .quest-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .quest-card{
+    order:0;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:10px 12px;
+    border:1px solid var(--divider);
+    border-radius:4px;
+    background:rgba(255,255,255,0.02);
+  }
+
+  .quest-check{
+    flex:none;
+    width:22px;
+    height:22px;
+    margin-top:2px;
+    border:2px solid var(--accent-gold);
+    border-radius:3px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--accent-gold);
+    font-size:15px;
+    line-height:1;
+  }
+
+  .side .quest-check{ border-color:var(--accent-side); color:var(--accent-side); }
+
+  .quest-body{ flex:1; min-width:0; }
+
+  .quest-title{
+    font-size:18px;
+    color:var(--text-main);
+  }
+
+  .quest-desc{
+    font-size:14px;
+    color:var(--text-dim);
+    margin-top:2px;
+    line-height:1.35;
+  }
+
+  /* Add class="quest-card completed" (or "quest-card side completed")
+     to a quest to mark it done: it gets a checkmark, strikethrough,
+     dims slightly, and automatically sorts below the active quests
+     in its section — no need to move it in the file. */
+  .quest-card.completed{ opacity:0.55; order:1; }
+  .quest-card.completed .quest-check::after{ content:"✓"; }
+  .quest-card.completed .quest-title,
+  .quest-card.completed .quest-desc{ text-decoration:line-through; }
+
+  .empty-note{
+    color:var(--text-dim);
+    font-size:14px;
+    font-style:italic;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:14px;
+    margin-top:6px;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <a class="back-link" href="index.html">&larr; Back to Party</a>
+  <h1 class="campaign-title">Red Wings</h1>
+  <p class="campaign-sub">— Quest Log —</p>
+
+  <!--
+    HOW TO EDIT THIS PAGE (no coding tools needed beyond a text editor):
+
+    ADD A QUEST:
+      Copy one whole <div class="quest-card">...</div> block below
+      (from the right section, Main or Side) and paste it right above
+      the closing </div> of that section's quest-list. Edit the title
+      and description text.
+
+    MARK A QUEST COMPLETE:
+      Change class="quest-card" to class="quest-card completed"
+      (or class="quest-card side" to class="quest-card side completed").
+      It'll get a checkmark, strikethrough, and move below the active
+      quests in that section automatically.
+
+    REMOVE A QUEST:
+      Delete its whole <div class="quest-card">...</div> block.
+  -->
+
+  <div class="panel">
+    <h2 class="section-title main">Main Quests</h2>
+    <div class="quest-list">
+
+      <div class="quest-card">
+        <div class="quest-check"></div>
+        <div class="quest-body">
+          <div class="quest-title">Red Wings - Board Up!</div>
+          <div class="quest-desc">To arms! This is not a drill. Embark on your first flight mission.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 class="section-title side">Side Quests</h2>
+    <div class="quest-list">
+
+      <div class="quest-card side completed">
+        <div class="quest-check"></div>
+        <div class="quest-body">
+          <div class="quest-title">Clear the cellar of rats</div>
+          <div class="quest-desc">Tavern keeper offered a free round.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  </footer>
+</div>
+</body>
+</html>

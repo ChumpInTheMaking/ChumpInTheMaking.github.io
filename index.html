@@ -84,6 +84,20 @@
     gap:12px;
     padding:8px 10px;
     border-bottom:1px solid var(--divider);
+    text-decoration:none;
+    color:inherit;
+    transition:background 0.12s ease;
+  }
+
+  a.char-card:hover,
+  a.char-card:focus-visible{
+    background:rgba(240,200,90,0.1);
+    outline:none;
+  }
+
+  a.char-card:hover .char-name-row span:first-child,
+  a.char-card:focus-visible .char-name-row span:first-child{
+    color:var(--accent-gold);
   }
 
   .char-card:nth-child(odd){
@@ -275,6 +289,16 @@
     border:1px solid var(--divider);
     border-radius:4px;
     background:rgba(255,255,255,0.02);
+    text-decoration:none;
+    color:inherit;
+    transition:background 0.12s ease, border-color 0.12s ease;
+  }
+
+  a.sidekick-card:hover,
+  a.sidekick-card:focus-visible{
+    background:rgba(201,166,245,0.1);
+    border-color:var(--accent-sidekick);
+    outline:none;
   }
 
   .sidekick-card .portrait{
@@ -323,7 +347,7 @@
 
   <div class="menu-board">
     <div class="party-panel">
-      <div class="char-card">
+      <a class="char-card" href="bio-kelly.html">
         <div class="portrait"><img src="images/bramwell.png" alt="Bramwell Stone portrait"></div>
         <div class="char-info">
           <div class="char-name-row"><span>Kelly</span><span>Lv. 3</span></div>
@@ -331,9 +355,9 @@
           <div class="stat-row"><span class="stat-label">HP</span><span class="hp-val">24 / 24</span></div>
           <div class="stat-row"><span class="stat-label">AC</span><span class="ac-val">16</span></div>
         </div>
-      </div>
+      </a>
 
-      <div class="char-card">
+      <a class="char-card" href="bio-craig.html">
         <div class="portrait"><img src="images/elowen.png" alt="Sister Elowen portrait"></div>
         <div class="char-info">
           <div class="char-name-row"><span>Craig</span><span>Lv. 3</span></div>
@@ -341,9 +365,9 @@
           <div class="stat-row"><span class="stat-label">HP</span><span class="hp-val">21 / 21</span></div>
           <div class="stat-row"><span class="stat-label">AC</span><span class="ac-val">12</span></div>
         </div>
-      </div>
+      </a>
 
-      <div class="char-card">
+      <a class="char-card" href="bio-lee.html">
         <div class="portrait"><img src="images/vex.png" alt="Vex Nightshade portrait"></div>
         <div class="char-info">
           <div class="char-name-row"><span>Lee</span><span>Lv. 3</span></div>
@@ -351,9 +375,9 @@
           <div class="stat-row"><span class="stat-label">HP</span><span class="hp-val">34 / 34</span></div>
           <div class="stat-row"><span class="stat-label">AC</span><span class="ac-val">17</span></div>
         </div>
-      </div>
+      </a>
 
-      <div class="char-card">
+      <a class="char-card" href="bio-lincoln.html">
         <div class="portrait"><img src="images/thistle.png" alt="Thistle Oakenshield portrait"></div>
         <div class="char-info">
           <div class="char-name-row"><span>Lincoln</span><span>Lv. 3</span></div>
@@ -361,9 +385,9 @@
           <div class="stat-row"><span class="stat-label">HP</span><span class="hp-val">24 / 24</span></div>
           <div class="stat-row"><span class="stat-label">AC</span><span class="ac-val">12</span></div>
         </div>
-      </div>
+      </a>
 
-      <div class="char-card">
+      <a class="char-card" href="bio-mike.html">
         <div class="portrait"><img src="images/zephyrine.png" alt="Zephyrine Cael portrait"></div>
         <div class="char-info">
           <div class="char-name-row"><span>Mike</span><span>Lv. 3</span></div>
@@ -371,7 +395,7 @@
           <div class="stat-row"><span class="stat-label">HP</span><span class="hp-val">20 / 20</span></div>
           <div class="stat-row"><span class="stat-label">AC</span><span class="ac-val">12</span></div>
         </div>
-      </div>
+      </a>
 
       <div class="char-card" style="visibility:hidden;">
         <div class="portrait"></div>
@@ -381,7 +405,6 @@
 
     <div class="command-panel">
       <ul class="command-list">
-        <li><a href="characters.html">Characters</a></li>
         <li><a href="items.html">Magic Items</a></li>
         <li><a href="quests.html">Quest Log</a></li>
         <li><a href="maps.html">Maps</a></li>
@@ -413,15 +436,15 @@
       <span class="sidekicks-title">Party Sidekicks</span>
     </div>
     <div class="sidekicks-grid">
-      <div class="sidekick-card">
+      <a class="sidekick-card" href="bio-harvey.html">
         <div class="portrait"><img src="images/captain_harvey.png" alt="Captain Harvey portrait"></div>
         <div class="char-info">
-          <div class="char-name-row"><span>Captain Harvey<span class="sidekick-tag">Temporary</span></span><span>Lv. 8</span></div>
+          <div class="char-name-row"><span>Captain Harvey</span><span>Lv. 8</span></div>
           <div class="sidekick-role">Captain of the Red Wings</div>
           <div class="stat-row"><span class="stat-label">HP</span><span class="hp-val">76 / 76</span></div>
           <div class="stat-row"><span class="stat-label">AC</span><span class="ac-val">20</span></div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
