@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Red Wings — Session Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+  :root{
+    --panel-top:#1a1f4d;
+    --panel-bottom:#0a0e2e;
+    --border-outer:#f5e6b8;
+    --border-inner:#8a6d2f;
+    --text-main:#f4f0e2;
+    --text-dim:#a9a7c9;
+    --accent-gold:#f0c85a;
+    --divider:#3a3f7a;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    min-height:100%;
+    background:#05061a;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(60,50,120,0.5), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(30,60,90,0.4), transparent 60%);
+    font-family:'VT323', monospace;
+    color:var(--text-main);
+    padding:24px;
+  }
+
+  .frame{ width:100%; max-width:820px; margin:0 auto; }
+
+  .back-link{
+    display:inline-block;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:16px;
+    margin-bottom:14px;
+    border-bottom:1px solid transparent;
+  }
+  .back-link:hover{ color:var(--accent-gold); border-bottom-color:var(--accent-gold); }
+
+  .campaign-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    letter-spacing:1px;
+    color:var(--accent-gold);
+    text-align:center;
+    margin:0 0 18px;
+    text-shadow:2px 2px 0 #000;
+  }
+
+  .campaign-sub{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:16px;
+    margin:-14px 0 20px;
+  }
+
+  .session{
+    border:3px solid var(--border-outer);
+    outline:3px solid var(--border-inner);
+    outline-offset:-6px;
+    border-radius:4px;
+    background:linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+    box-shadow:0 0 0 6px #000, 0 20px 40px rgba(0,0,0,0.6);
+    padding:18px 20px;
+    margin-bottom:18px;
+  }
+
+  .session-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px 16px;
+    padding-bottom:10px;
+    margin-bottom:12px;
+    border-bottom:1px solid var(--divider);
+  }
+
+  .session-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:12px;
+    color:var(--accent-gold);
+    letter-spacing:0.5px;
+  }
+
+  .session-date{
+    font-size:15px;
+    color:var(--text-dim);
+  }
+
+  .session-body p{
+    font-size:17px;
+    line-height:1.55;
+    margin:0 0 12px;
+  }
+
+  .session-body p:last-child{ margin-bottom:0; }
+
+  .session-body ul{
+    margin:0 0 12px;
+    padding-left:22px;
+  }
+
+  .session-body ul:last-child{ margin-bottom:0; }
+
+  .session-body li{
+    font-size:17px;
+    line-height:1.5;
+    margin-bottom:4px;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:14px;
+    margin-top:6px;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <a class="back-link" href="index.html">&larr; Back to Party</a>
+  <h1 class="campaign-title">Red Wings</h1>
+  <p class="campaign-sub">— Session Notes —</p>
+
+  <!--
+    HOW TO EDIT THIS PAGE:
+
+    ADD A NEW SESSION:
+      Copy one whole <div class="session">...</div> block and paste it
+      right above the closing </div> of the PREVIOUS session (so newest
+      stays on top), or wherever you'd like it to appear. Edit the
+      session number, date, and body text.
+
+    FORMATTING THE BODY:
+      Use <p>...</p> for paragraphs and <ul><li>...</li></ul> for bullet
+      lists (good for recaps, loot, or decisions made). Mix and match
+      as needed inside .session-body.
+
+    REMOVE A SESSION:
+      Delete its whole <div class="session">...</div> block.
+  -->
+
+  <div class="session">
+    <div class="session-header">
+      <span class="session-title">Session 1</span>
+      <span class="session-date">Date here</span>
+    </div>
+    <div class="session-body">
+      <p>Summarize what happened this session — where the party went, who they met, and what they decided.</p>
+      <ul>
+        <li>Key event or plot point</li>
+        <li>Loot or rewards gained</li>
+        <li>Something to remember for next time</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>This log is edited directly in the page file — ask your DM to add new sessions.</footer>
+</div>
+</body>
+</html>
