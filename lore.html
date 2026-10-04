@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Red Wings — Established Lore</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+  :root{
+    --panel-top:#1a1f4d;
+    --panel-bottom:#0a0e2e;
+    --border-outer:#f5e6b8;
+    --border-inner:#8a6d2f;
+    --text-main:#f4f0e2;
+    --text-dim:#a9a7c9;
+    --accent-gold:#f0c85a;
+    --divider:#3a3f7a;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    min-height:100%;
+    background:#05061a;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(60,50,120,0.5), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(30,60,90,0.4), transparent 60%);
+    font-family:'VT323', monospace;
+    color:var(--text-main);
+    padding:24px;
+  }
+
+  .frame{ width:100%; max-width:820px; margin:0 auto; }
+
+  .back-link{
+    display:inline-block;
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:16px;
+    margin-bottom:14px;
+    border-bottom:1px solid transparent;
+  }
+  .back-link:hover{ color:var(--accent-gold); border-bottom-color:var(--accent-gold); }
+
+  .campaign-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    letter-spacing:1px;
+    color:var(--accent-gold);
+    text-align:center;
+    margin:0 0 18px;
+    text-shadow:2px 2px 0 #000;
+  }
+
+  .campaign-sub{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:16px;
+    margin:-14px 0 20px;
+  }
+
+  .panel{
+    border:3px solid var(--border-outer);
+    outline:3px solid var(--border-inner);
+    outline-offset:-6px;
+    border-radius:4px;
+    background:linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+    box-shadow:0 0 0 6px #000, 0 20px 40px rgba(0,0,0,0.6);
+    padding:18px 20px;
+    margin-bottom:18px;
+  }
+
+  .lore-header{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+    padding-bottom:10px;
+    margin-bottom:12px;
+    border-bottom:1px solid var(--divider);
+  }
+
+  .lore-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:12px;
+    color:var(--accent-gold);
+    letter-spacing:0.5px;
+  }
+
+  .lore-tag{
+    font-size:13px;
+    color:var(--text-dim);
+    border:1px solid var(--divider);
+    border-radius:3px;
+    padding:1px 8px;
+    letter-spacing:0.5px;
+  }
+
+  .lore-body p{
+    font-size:17px;
+    line-height:1.55;
+    margin:0 0 12px;
+  }
+
+  .lore-body p:last-child{ margin-bottom:0; }
+
+  footer{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:14px;
+    margin-top:6px;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <a class="back-link" href="index.html">&larr; Back to Party</a>
+  <h1 class="campaign-title">Red Wings</h1>
+  <p class="campaign-sub">— Established Lore —</p>
+
+  <!--
+    HOW TO EDIT THIS PAGE:
+
+    ADD A LORE ENTRY:
+      Copy one whole <div class="panel">...</div> block (a full entry,
+      from <div class="panel"> to its closing </div>) and paste it
+      anywhere in the page. Edit the title, tag (History / Factions /
+      Religion / Geography / whatever categories you use — or delete
+      the <span class="lore-tag"> entirely), and the body paragraphs.
+
+    REMOVE AN ENTRY:
+      Delete its whole <div class="panel">...</div> block.
+
+    This is for things the party has confirmed in-world — not DM-only
+    secrets. Treat it as the party's shared reference, not your notes.
+  -->
+
+  <div class="panel">
+    <div class="lore-header">
+      <span class="lore-title">Entry Title</span>
+      <span class="lore-tag">Category</span>
+    </div>
+    <div class="lore-body">
+      <p>Write the established fact or piece of history here — something the party has learned and confirmed, not a DM secret or rumor that hasn't been verified.</p>
+      <p>Add more paragraphs as needed for longer entries.</p>
+    </div>
+  </div>
+
+  <footer>This page is edited directly in the file — ask your DM to add new entries.</footer>
+</div>
+</body>
+</html>

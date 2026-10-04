@@ -211,22 +211,15 @@
   .status-bar{
     display:grid;
     grid-template-columns:1fr 1fr;
+    gap:2px;
+    background:var(--border-inner);
     border-top:2px solid var(--border-inner);
   }
 
   .status-cell{
     padding:12px 16px;
     font-size:16px;
-    border-right:2px solid var(--border-inner);
-    border-bottom:2px solid var(--border-inner);
-  }
-
-  .status-cell:nth-child(2n){
-    border-right:none;
-  }
-
-  .status-cell:nth-last-child(-n+2){
-    border-bottom:none;
+    background:var(--panel-bottom);
   }
 
   .status-label{
@@ -405,9 +398,10 @@
 
     <div class="command-panel">
       <ul class="command-list">
-        <li><a href="items.html">Magic Items</a></li>
-        <li><a href="quests.html">Quest Log</a></li>
+        <li><a href="lore.html">Established Lore</a></li>
         <li><a href="maps.html">Maps</a></li>
+        <li><a href="npcs.html">Notable NPCs</a></li>
+        <li><a href="quests.html">Quest Log</a></li>
         <li><a href="notes.html">Session Notes</a></li>
       </ul>
       <div class="status-bar">
