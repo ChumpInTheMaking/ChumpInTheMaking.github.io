@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Red Wings — Magic Shop</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+  :root{--panel-top:#1a1f4d;--panel-bottom:#0a0e2e;--border-outer:#f5e6b8;--border-inner:#8a6d2f;--text-main:#f4f0e2;--text-dim:#a9a7c9;--accent-gold:#f0c85a;--divider:#3a3f7a;
+    --r-common:#a9a7c9;--r-uncommon:#7fd858;--r-rare:#7ec4e8;--r-veryrare:#c9a6f5;--r-legendary:#f0a040;}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:#05061a;background-image:radial-gradient(ellipse at 20% 10%,rgba(60,50,120,.5),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(30,60,90,.4),transparent 60%);font-family:'VT323',monospace;color:var(--text-main);padding:24px}
+  .frame{width:100%;max-width:820px;margin:0 auto}
+  .back-link{display:inline-block;color:var(--text-dim);text-decoration:none;font-size:16px;margin-bottom:14px;border-bottom:1px solid transparent}
+  .back-link:hover{color:var(--accent-gold);border-bottom-color:var(--accent-gold)}
+  .campaign-title{font-family:'Press Start 2P',monospace;font-size:14px;letter-spacing:1px;color:var(--accent-gold);text-align:center;margin:0 0 18px;text-shadow:2px 2px 0 #000}
+  .campaign-sub{text-align:center;color:var(--text-dim);font-size:16px;margin:-14px 0 20px}
+  .panel{border:3px solid var(--border-outer);outline:3px solid var(--border-inner);outline-offset:-6px;border-radius:4px;background:linear-gradient(180deg,var(--panel-top),var(--panel-bottom));box-shadow:0 0 0 6px #000,0 20px 40px rgba(0,0,0,.6);padding:18px 20px;margin-bottom:22px}
+  .shop-header{padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--divider)}
+  .shop-name{font-family:'Press Start 2P',monospace;font-size:13px;color:var(--accent-gold);margin-bottom:8px}
+  .shop-meta{font-size:16px;color:var(--text-dim)}
+  .item-list{display:flex;flex-direction:column;gap:10px}
+  .item-card{padding:10px 14px;border:1px solid var(--divider);border-radius:4px;background:rgba(255,255,255,.02)}
+  .item-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+  .item-name-wrap{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;min-width:0}
+  .item-name{font-size:19px}
+  .tag{font-size:12px;border:1px solid currentColor;border-radius:3px;padding:1px 7px;letter-spacing:.5px;color:var(--text-dim)}
+  .tag.Common{color:var(--r-common)}.tag.Uncommon{color:var(--r-uncommon)}.tag.Rare{color:var(--r-rare)}.tag.Very{color:var(--r-veryrare)}.tag.Legendary{color:var(--r-legendary)}
+  .tag.type{border-color:var(--divider)}
+  .item-price{flex:none;white-space:nowrap;font-size:19px;color:var(--accent-gold)}
+  .item-desc{font-size:16px;line-height:1.4;color:var(--text-dim);margin-top:4px}
+  .item-card.sold{opacity:.5}.item-card.sold .item-price{text-decoration:line-through}
+  .item-card.sold .item-name::after{content:"  SOLD OUT";font-size:12px;color:var(--text-dim)}
+  .note,footer{text-align:center;color:var(--text-dim);font-size:14px;margin-top:12px}
+  /* DM workbench */
+  #dm{display:none}.dm-on #dm{display:block}
+  #dm h3{font-family:'Press Start 2P',monospace;font-size:11px;color:var(--accent-gold);margin:16px 0 8px}
+  #dm h3:first-child{margin-top:0}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+  #dm input,#dm select,#dm textarea,#dm button{font-family:'VT323',monospace;font-size:16px;background:#10143a;color:var(--text-main);border:1px solid var(--divider);border-radius:3px;padding:5px 8px}
+  #dm input:focus,#dm select:focus,#dm textarea:focus{outline:none;border-color:var(--accent-gold)}
+  #dm button{cursor:pointer;background:var(--accent-gold);color:#1a1200;border:none}
+  #dm button.ghost{background:transparent;color:var(--text-dim);border:1px solid var(--divider)}
+  #dm input[type=number]{width:64px}.grow{flex:1;min-width:120px}
+  #dm textarea{width:100%;height:170px;font-size:14px}
+  .warn{color:#e0a07a;font-size:14px}
+  .hint{color:var(--text-dim);font-size:14px;margin:4px 0}
+</style>
+</head>
+<body>
+<div class="frame">
+  <a class="back-link" href="index.html">&larr; Back to Party</a>
+  <h1 class="campaign-title">Red Wings</h1>
+  <p class="campaign-sub">— Magic Shop —</p>
+
+  <div id="dm" class="panel"></div>
+  <div class="panel" id="shop"></div>
+  <div class="note" id="notes"></div>
+  <footer>Stock changes from town to town — buy what you need before you leave.</footer>
+</div>
+
+<script>
+/* ============================ DM SETTINGS ============================
+   HOW THIS PAGE WORKS
+   - Players see the shop named in ACTIVE_SHOP, built from its entry in SHOPS.
+   - Stock is rolled from the item tables using each shop's "seed", so every
+     viewer sees the SAME stock. Change the seed to re-roll the shop.
+   - Easiest way to edit: open this page as  shop.html?dm  (a DM workbench
+     appears). Set counts, guaranteed items and seed, then press
+     "Copy shop config" and paste it over the shop's entry in SHOPS below
+     (or add it as a new entry). Set ACTIVE_SHOP to that shop's id.
+   - Hand-editing works too: each shop is plain data (see the example).
+   ===================================================================== */
+const ACTIVE_SHOP = "the-gilded-lantern";
+
+/* Average sale price by rarity (gp). Each item's actual price is drawn from a
+   bell curve around this average and rounded to the nearest 10 GP.
+   PRICE_SPREAD is the standard deviation as a fraction of the average
+   (0.2 = about two-thirds of items fall within 20% of the average;
+   0 = every item costs exactly the average). A guaranteed item can set its
+   own exact price: { "name": "...", "price": 750 } (used as typed). */
+const PRICES = { "Common":100, "Uncommon":400, "Rare":4000, "Very Rare":40000, "Legendary":200000 };
+const PRICE_SPREAD = 0.2;
+
+/* Single-use items (other than scrolls) sell for HALF the usual price. An item
+   counts as a consumable if its name matches this pattern. Edit to taste:
+   add words with "|", or delete a word to take that kind of item off the list. */
+const CONSUMABLE = /^(potion|elixir|oil of|philter|perfume|dust of|manual of|tome of|elemental gem|pot of awakening|universal solvent|sovereign glue|nolzur|quaal|bead of (force|nourishment|refreshment))|ammunition|ointment/i;
+
+const SHOPS = [
+  {
+  "id": "the-gilded-lantern",
+  "name": "The Gilded Lantern",
+  "city": "Kingdom of Baron",
+  "seed": "amber-crow-372",
+  "roll": [
+    {
+      "count": 3,
+      "rarity": "Common"
+    },
+    {
+      "count": 2,
+      "rarity": "Uncommon",
+      "type": "Armaments"
+    },
+    {
+      "count": 1,
+      "rarity": "Rare",
+      "type": "Armaments"
+    }
+  ],
+  "guarantee": [
+    {
+      "name": "Potion of Healing",
+      "price": 50,
+      "rarity": "Common"
+    },
+    {
+      "name": "Weapon, +1",
+      "price": 400,
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Shield, +1",
+      "price": 400,
+      "rarity": "Uncommon"
+    }
+  ],
+  "sold": []
+  }
+];
+/* ================================================================== */
+
+const TABLES = {"Arcana":{"Common":[{"n":"Bead of Nourishment","w":2},{"n":"Bead of Refreshment","w":2},{"n":"Candle of the Deep","w":3},{"n":"Cloak of Billowing","w":3},{"n":"Cloak of Many Fashions","w":3},{"n":"Clothes of Mending","w":2},{"n":"Dark Shard Amulet","w":2},{"n":"Enduring Spellbook","w":2},{"n":"Ersatz Eye","w":2},{"n":"Hat of Vermin","w":3},{"n":"Hat of Wizardry","w":3},{"n":"Heward’s Handy Spice Pouch","w":2},{"n":"Horn of Silent Alarm","w":2},{"n":"Instrument of Illusions","w":2},{"n":"Instrument of Scribing","w":2},{"n":"Lock of Trickery","w":2},{"n":"Mystery Key","w":3},{"n":"Orb of Direction","w":2},{"n":"Orb of Time","w":2},{"n":"Perfume of Bewitching","w":2},{"n":"Pipe of Smoke Monsters","w":3},{"n":"Potion of Climbing","w":3},{"n":"Potion of Comprehension","w":3},{"n":"Pot of Awakening","w":3},{"n":"Prosthetic Limb","w":2},{"n":"Rival Coin","w":4},{"n":"Rope of Mending","w":2},{"n":"Ruby of the War Mage","w":2},{"n":"Spell Scroll (cantrip or level 1 spell)","w":14},{"n":"Staff of Adornment","w":2},{"n":"Staff of Birdcalls","w":2},{"n":"Staff of Flowers","w":3},{"n":"Talking Doll","w":3},{"n":"Tankard of Sobriety","w":2},{"n":"Wand of Conducting","w":3},{"n":"Wand of Pyrotechnics","w":3}],"Uncommon":[{"n":"Amulet of Proof against Detection and Location","w":1},{"n":"Baba Yaga’s Dancing Broom","w":1},{"n":"Bag of Holding","w":3},{"n":"Bag of Tricks","w":2},{"n":"Brooch of Shielding","w":1},{"n":"Broom of Flying","w":1},{"n":"Cap of Water Breathing","w":1},{"n":"Circlet of Blasting","w":1},{"n":"Cloak of Protection","w":2},{"n":"Cloak of the Manta Ray","w":1},{"n":"Decanter of Endless Water","w":1},{"n":"Deck of Illusions","w":1},{"n":"Driftglobe","w":2},{"n":"Dust of Disappearance","w":2},{"n":"Dust of Dryness","w":1},{"n":"Dust of Sneezing and Choking","w":1},{"n":"Elemental Gem","w":2},{"n":"Enspelled Staff (cantrip or level 1 spell)","w":1},{"n":"Eversmoking Bottle","w":1},{"n":"Eyes of Charming","w":1},{"n":"Eyes of Minute Seeing","w":1},{"n":"Figurine of Wondrous Power (silver raven)","w":2},{"n":"Gem of Brightness","w":1},{"n":"Hag Eye","w":1},{"n":"Hat of Disguise","w":1},{"n":"Headband of Intellect","w":1},{"n":"Helm of Comprehending Languages","w":1},{"n":"Helm of Telepathy","w":1},{"n":"Immovable Rod","w":1},{"n":"Lantern of Revealing","w":1},{"n":"Medallion of Thoughts","w":1},{"n":"Mithral Armor","w":1},{"n":"Necklace of Adaptation","w":2},{"n":"Oil of Slipperiness","w":1},{"n":"Pearl of Power","w":1},{"n":"Periapt of Health","w":1},{"n":"Philter of Love","w":2},{"n":"Potion of Animal Friendship","w":2},{"n":"Potion of Fire Breath","w":2},{"n":"Potion of Giant Strength (hill)","w":2},{"n":"Potion of Growth","w":2},{"n":"Potion of Poison","w":2},{"n":"Potion of Resistance","w":2},{"n":"Potion of Water Breathing","w":2},{"n":"Quaal’s Feather Token (anchor, fan, or tree)","w":1},{"n":"Ring of Mind Shielding","w":1},{"n":"Robe of Useful Items","w":2},{"n":"Rod of the Pact Keeper","w":2},{"n":"Rope of Climbing","w":2},{"n":"Saddle of the Cavalier","w":1},{"n":"Sending Stones","w":2},{"n":"Slippers of Spider Climbing","w":2},{"n":"Spell Scroll (level 2 or level 3 spell)","w":8},{"n":"Staff of the Adder","w":1},{"n":"Staff of the Python","w":1},{"n":"Wand of Magic Detection","w":4},{"n":"Wand of Magic Missiles","w":3},{"n":"Wand of Secrets","w":2},{"n":"Wand of the War Mage, +1","w":2},{"n":"Wand of Web","w":2},{"n":"Wind Fan","w":2},{"n":"Winged Boots","w":1}],"Rare":[{"n":"Bag of Beans","w":1},{"n":"Bead of Force","w":2},{"n":"Bowl of Commanding Water Elementals","w":1},{"n":"Bracers of Defense","w":2},{"n":"Brazier of Commanding Fire Elementals","w":1},{"n":"Cape of the Mountebank","w":2},{"n":"Censer of Controlling Air Elementals","w":1},{"n":"Chime of Opening","w":2},{"n":"Cloak of Displacement","w":2},{"n":"Cloak of the Bat","w":2},{"n":"Cube of Force","w":1},{"n":"Cube of Summoning","w":1},{"n":"Daern’s Instant Fortress","w":1},{"n":"Enspelled Staff (level 2 or 3 spell)","w":2},{"n":"Figurine of Wondrous Power (bronze griffon, ebony fly, golden lions, ivory goats, marble elephant, onyx dog, or serpentine owl)","w":2},{"n":"Folding Boat","w":2},{"n":"Gem of Seeing","w":2},{"n":"Helm of Teleportation","w":1},{"n":"Heward’s Handy Haversack","w":2},{"n":"Horseshoes of Speed","w":2},{"n":"Ioun Stone (reserve)","w":2},{"n":"Iron Bands of Bilarro","w":1},{"n":"Mantle of Spell Resistance","w":1},{"n":"Necklace of Fireballs","w":2},{"n":"Oil of Etherealness","w":1},{"n":"Portable Hole","w":1},{"n":"Potion of Clairvoyance","w":2},{"n":"Potion of Diminution","w":2},{"n":"Potion of Gaseous Form","w":2},{"n":"Potion of Giant Strength (fire)","w":1},{"n":"Potion of Giant Strength (frost or stone)","w":2},{"n":"Potion of Heroism","w":2},{"n":"Potion of Invisibility","w":2},{"n":"Potion of Invulnerability","w":2},{"n":"Potion of Mind Reading","w":2},{"n":"Quaal’s Feather Token (bird, swan boat, or whip)","w":2},{"n":"Ring of Feather Falling","w":2},{"n":"Ring of Spell Storing","w":1},{"n":"Ring of X-ray Vision","w":1},{"n":"Robe of Eyes","w":2},{"n":"Rod of Rulership","w":1},{"n":"Rod of the Pact Keeper, +2","w":2},{"n":"Scroll of Protection","w":2},{"n":"Spell Scroll (level 4 or level 5 spell)","w":5},{"n":"Staff of Charming","w":2},{"n":"Staff of Swarming Insects","w":2},{"n":"Staff of Withering","w":2},{"n":"Stone of Controlling Earth Elementals","w":1},{"n":"Wand of Binding","w":2},{"n":"Wand of Fear","w":2},{"n":"Wand of Fireballs","w":4},{"n":"Wand of Lightning Bolts","w":4},{"n":"Wand of the War Mage, +2","w":2},{"n":"Wand of Wonder","w":2},{"n":"Wings of Flying","w":2}],"Very Rare":[{"n":"Amulet of the Planes","w":2},{"n":"Bag of Devouring","w":2},{"n":"Carpet of Flying","w":2},{"n":"Cauldron of Rebirth","w":2},{"n":"Cloak of Arachnida","w":2},{"n":"Crystal Ball","w":2},{"n":"Dancing Sword","w":1},{"n":"Efreeti Bottle","w":1},{"n":"Enspelled Staff (level 4 or 5 spell)","w":2},{"n":"Figurine of Wondrous Power (obsidian steed)","w":2},{"n":"Hat of Many Spells","w":2},{"n":"Helm of Brilliance","w":2},{"n":"Horseshoes of a Zephyr","w":2},{"n":"Ioun Stone (absorption, fortitude, intellect, or leadership)","w":2},{"n":"Manual of Golems (clay, flesh, iron, or stone)","w":2},{"n":"Mirror of Life Trapping","w":1},{"n":"Nolzur’s Marvelous Pigments","w":2},{"n":"Oil of Sharpness","w":3},{"n":"Potion of Flying","w":4},{"n":"Potion of Giant Strength (cloud)","w":4},{"n":"Potion of Greater Invisibility","w":4},{"n":"Potion of Longevity","w":3},{"n":"Potion of Speed","w":4},{"n":"Potion of Vitality","w":4},{"n":"Ring of Regeneration","w":2},{"n":"Ring of Shooting Stars","w":2},{"n":"Ring of Telekinesis","w":2},{"n":"Robe of Scintillating Colors","w":2},{"n":"Robe of Stars","w":2},{"n":"Rod of Absorption","w":2},{"n":"Rod of Security","w":2},{"n":"Rod of the Pact Keeper, +3","w":2},{"n":"Spell Scroll (level 6, level 7, or level 8 spell)","w":12},{"n":"Staff of Fire","w":2},{"n":"Staff of Frost","w":2},{"n":"Staff of Power","w":1},{"n":"Staff of Thunder and Lightning","w":2},{"n":"Tome of Clear Thought","w":2},{"n":"Wand of Polymorph","w":3},{"n":"Wand of the War Mage, +3","w":3}],"Legendary":[{"n":"Apparatus of Kwalish","w":4},{"n":"Cloak of Invisibility","w":4},{"n":"Crystal Ball of Mind Reading","w":4},{"n":"Crystal Ball of Telepathy","w":4},{"n":"Crystal Ball of True Seeing","w":4},{"n":"Cubic Gate","w":2},{"n":"Deck of Many Things","w":1},{"n":"Enspelled Staff (level 6, 7, or 8 spell)","w":4},{"n":"Ioun Stone (greater absorption, mastery, or regeneration)","w":4},{"n":"Iron Flask","w":2},{"n":"Potion of Storm Giant Strength (storm)","w":8},{"n":"Ring of Djinni Summoning","w":4},{"n":"Ring of Elemental Command (air, earth, fire, or water)","w":4},{"n":"Ring of Invisibility","w":4},{"n":"Ring of Spell Turning","w":4},{"n":"Ring of Three Wishes","w":1},{"n":"Robe of the Archmagi","w":1},{"n":"Scroll of Titan Summoning","w":2},{"n":"Sovereign Glue","w":4},{"n":"Spell Scroll (level 9 spell)","w":18},{"n":"Sphere of Annihilation","w":1},{"n":"Staff of the Magi","w":1},{"n":"Talisman of the Sphere","w":3},{"n":"Tome of the Stilled Tongue","w":4},{"n":"Universal Solvent","w":4},{"n":"Well of Many Worlds","w":4}]},"Armaments":{"Common":[{"n":"Armor of Gleaming","w":10},{"n":"Cast-Off Armor","w":10},{"n":"Dread Helm","w":10},{"n":"Moon-Touched Sword","w":10},{"n":"Shield of Expression","w":10},{"n":"Silvered Weapon","w":10},{"n":"Smoldering Armor","w":10},{"n":"Sylvan Talon","w":10},{"n":"Veteran’s Cane","w":10},{"n":"Walloping Ammunition","w":10}],"Uncommon":[{"n":"Adamantine Armor","w":4},{"n":"Adamantine Weapon","w":4},{"n":"Ammunition, +1","w":5},{"n":"Bracers of Archery","w":5},{"n":"Enspelled Armor (cantrip or level 1 spell)","w":5},{"n":"Enspelled Weapon (cantrip or level 1 spell)","w":5},{"n":"Gauntlets of Ogre Power","w":5},{"n":"Javelin of Lightning","w":5},{"n":"Mariner’s Armor","w":5},{"n":"Mithral Armor","w":5},{"n":"Potion of Giant Strength (hill)","w":5},{"n":"Potion of Pugilism","w":5},{"n":"Quiver of Ehlonna","w":4},{"n":"Saddle of the Cavalier","w":4},{"n":"Sentinel Shield","w":5},{"n":"Shield, +1","w":5},{"n":"Sword of Vengeance","w":5},{"n":"Trident of Fish Command","w":4},{"n":"Weapon, +1","w":5},{"n":"Weapon of Warning","w":5},{"n":"Wraps of Unarmed Power, +1","w":5}],"Rare":[{"n":"Ammunition, +2","w":3},{"n":"Armor, +1","w":4},{"n":"Armor of Resistance","w":3},{"n":"Armor of Vulnerability","w":3},{"n":"Arrow-Catching Shield","w":2},{"n":"Belt of Giant Strength (hill)","w":3},{"n":"Berserker Axe","w":2},{"n":"Daern’s Instant Fortress","w":2},{"n":"Dagger of Venom","w":3},{"n":"Dragon Slayer","w":3},{"n":"Elven Chain","w":3},{"n":"Enspelled Armor (level 2 or 3 spell)","w":3},{"n":"Enspelled Weapon (level 2 or 3 spell)","w":3},{"n":"Flame Tongue","w":3},{"n":"Giant Slayer","w":3},{"n":"Horn of Blasting","w":3},{"n":"Horn of Valhalla (brass or silver)","w":2},{"n":"Ioun Stone (protection)","w":3},{"n":"Mace of Disruption","w":3},{"n":"Mace of Smiting","w":3},{"n":"Mace of Terror","w":3},{"n":"Potion of Giant Strength (fire)","w":3},{"n":"Potion of Giant Strength (frost or stone)","w":3},{"n":"Potion of Heroism","w":3},{"n":"Potion of Invulnerability","w":3},{"n":"Ring of Protection","w":3},{"n":"Ring of the Ram","w":3},{"n":"Shield, +2","w":3},{"n":"Shield of Missile Attraction","w":3},{"n":"Sun Blade","w":2},{"n":"Sword of Life Stealing","w":2},{"n":"Sword of Wounding","w":2},{"n":"Tentacle Rod","w":2},{"n":"Vicious Weapon","w":2},{"n":"Weapon, +2","w":3},{"n":"Wraps of Unarmed Power, +2","w":3}],"Very Rare":[{"n":"Ammunition, +3","w":3},{"n":"Ammunition of Slaying","w":3},{"n":"Animated Shield","w":3},{"n":"Armor, +2","w":3},{"n":"Belt of Giant Strength (fire)","w":2},{"n":"Belt of Giant Strength (frost or stone)","w":3},{"n":"Dancing Sword","w":2},{"n":"Demon Armor","w":3},{"n":"Dragon Scale Mail","w":3},{"n":"Dwarven Plate","w":3},{"n":"Dwarven Thrower","w":3},{"n":"Energy Bow","w":3},{"n":"Enspelled Armor (level 4 or 5 spell)","w":3},{"n":"Enspelled Weapon (level 4 or 5 spell)","w":3},{"n":"Executioner’s Axe","w":3},{"n":"Frost Brand","w":3},{"n":"Horn of Valhalla (bronze)","w":3},{"n":"Ioun Stone (strength)","w":3},{"n":"Lute of Thunderous Thumping","w":3},{"n":"Manual of Gainful Exercise","w":3},{"n":"Nine Lives Stealer","w":3},{"n":"Oathbow","w":3},{"n":"Oil of Sharpness","w":4},{"n":"Potion of Giant Strength (cloud)","w":4},{"n":"Quarterstaff of the Acrobat","w":3},{"n":"Scimitar of Speed","w":3},{"n":"Shield, +3","w":4},{"n":"Shield of the Cavalier","w":3},{"n":"Spellguard Shield","w":3},{"n":"Sword of Sharpness","w":3},{"n":"Thunderous Greatclub","w":3},{"n":"Weapon, +3","w":3},{"n":"Wraps of Unarmed Power, +3","w":3}],"Legendary":[{"n":"Armor, +3","w":6},{"n":"Armor of Invulnerability","w":6},{"n":"Belt of Giant Strength (cloud)","w":6},{"n":"Belt of Giant Strength (storm)","w":3},{"n":"Defender","w":6},{"n":"Efreeti Chain","w":6},{"n":"Enspelled Armor (level 6, 7, or 8 spell)","w":6},{"n":"Enspelled Weapon (level 6, 7, or 8 spell)","w":6},{"n":"Hammer of Thunderbolts","w":6},{"n":"Holy Avenger","w":5},{"n":"Horn of Valhalla (iron)","w":6},{"n":"Luck Blade","w":6},{"n":"Moonblade","w":4},{"n":"Plate Armor of Etherealness","w":6},{"n":"Potion of Giant Strength (storm)","w":9},{"n":"Rod of Lordly Might","w":3},{"n":"Sword of Answering","w":5},{"n":"Vorpal Sword","w":5}]},"Implements":{"Common":[{"n":"Bead of Nourishment","w":2},{"n":"Bead of Refreshment","w":2},{"n":"Boots of False Tracks","w":2},{"n":"Candle of the Deep","w":2},{"n":"Charlatan’s Die","w":2},{"n":"Cloak of Many Fashions","w":3},{"n":"Clockwork Amulet","w":2},{"n":"Ear Horn of Hearing","w":2},{"n":"Ersatz Eye","w":2},{"n":"Heward’s Handy Spice Pouch","w":2},{"n":"Horn of Silent Alarm","w":2},{"n":"Instrument of Illusions","w":2},{"n":"Instrument of Scribing","w":2},{"n":"Lock of Trickery","w":2},{"n":"Moon-Touched Sword","w":3},{"n":"Mystery Key","w":2},{"n":"Orb of Direction","w":2},{"n":"Orb of Time","w":2},{"n":"Perfume of Bewitching","w":2},{"n":"Pipe of Smoke Monsters","w":2},{"n":"Pole of Angling","w":2},{"n":"Pole of Collapsing","w":2},{"n":"Potion of Climbing","w":6},{"n":"Potion of Comprehension","w":6},{"n":"Potion of Healing","w":16},{"n":"Prosthetic Limb","w":2},{"n":"Rope of Mending","w":2},{"n":"Staff of Birdcalls","w":2},{"n":"Sylvan Talon","w":2},{"n":"Talking Doll","w":2},{"n":"Tankard of Sobriety","w":2},{"n":"Veteran’s Cane","w":4},{"n":"Walloping Ammunition","w":3},{"n":"Wand of Conducting","w":3},{"n":"Wand of Pyrotechnics","w":4}],"Uncommon":[{"n":"Alchemy Jug","w":2},{"n":"Ammunition, +1","w":4},{"n":"Bag of Holding","w":4},{"n":"Boots of Elvenkind","w":2},{"n":"Boots of Striding and Springing","w":2},{"n":"Boots of the Winterlands","w":2},{"n":"Broom of Flying","w":2},{"n":"Cap of Water Breathing","w":2},{"n":"Cloak of Elvenkind","w":2},{"n":"Cloak of Protection","w":2},{"n":"Cloak of the Manta Ray","w":2},{"n":"Decanter of Endless Water","w":1},{"n":"Driftglobe","w":3},{"n":"Dust of Disappearance","w":2},{"n":"Dust of Dryness","w":2},{"n":"Dust of Sneezing and Choking","w":2},{"n":"Enspelled Weapon (cantrip or level 1 spell)","w":2},{"n":"Eyes of Minute Seeing","w":2},{"n":"Eyes of the Eagle","w":2},{"n":"Gloves of Missile Snaring","w":2},{"n":"Gloves of Swimming and Climbing","w":2},{"n":"Gloves of Thievery","w":2},{"n":"Goggles of Night","w":2},{"n":"Hag Eye","w":1},{"n":"Helm of Comprehending Languages","w":3},{"n":"Immovable Rod","w":1},{"n":"Instrument of the Bards (Doss lute, Fochlucan bandore, or Mac-Fuirmidh cittern)","w":2},{"n":"Lantern of Revealing","w":2},{"n":"Nature’s Mantle","w":2},{"n":"Oil of Slipperiness","w":2},{"n":"Pipes of Haunting","w":2},{"n":"Pipes of the Sewers","w":2},{"n":"Potion of Growth","w":4},{"n":"Potion of Healing (greater)","w":9},{"n":"Potion of Water Breathing","w":4},{"n":"Quaal’s Feather Token (anchor, fan, or tree)","w":2},{"n":"Ring of Jumping","w":2},{"n":"Ring of Swimming","w":2},{"n":"Ring of Warmth","w":2},{"n":"Robe of Useful Items","w":2},{"n":"Rope of Climbing","w":2},{"n":"Stone of Good Luck","w":2},{"n":"Wand of Secrets","w":2}],"Rare":[{"n":"Ammunition, +2","w":4},{"n":"Bag of Beans","w":4},{"n":"Belt of Dwarvenkind","w":4},{"n":"Boots of Levitation","w":4},{"n":"Boots of Speed","w":4},{"n":"Chime of Opening","w":4},{"n":"Dimensional Shackles","w":4},{"n":"Enspelled Weapon (level 2 or 3 spell)","w":4},{"n":"Folding Boat","w":4},{"n":"Glamoured Studded Leather","w":4},{"n":"Heward’s Handy Haversack","w":4},{"n":"Horseshoes of Speed","w":4},{"n":"Instrument of the Bards (Canaith mandolin or Cli lyre)","w":4},{"n":"Ioun Stone (awareness)","w":4},{"n":"Portable Hole","w":4},{"n":"Potion of Diminution","w":4},{"n":"Potion of Gaseous Form","w":4},{"n":"Potion of Healing (superior)","w":8},{"n":"Quaal’s Feather Token (bird, swan boat, or whip)","w":4},{"n":"Ring of Evasion","w":4},{"n":"Ring of Free Action","w":4},{"n":"Rope of Entanglement","w":4},{"n":"Staff of Healing","w":4},{"n":"Wand of Enemy Detection","w":4}],"Very Rare":[{"n":"Ammunition, +3","w":7},{"n":"Bag of Devouring","w":7},{"n":"Carpet of Flying","w":7},{"n":"Enspelled Weapon (level 4 or 5 spell)","w":7},{"n":"Horseshoes of a Zephyr","w":7},{"n":"Instrument of the Bards (Anstruth harp)","w":7},{"n":"Ioun Stone (agility)","w":7},{"n":"Lute of Thunderous Thumping","w":7},{"n":"Manual of Quickness of Action","w":7},{"n":"Nolzur’s Marvelous Pigments","w":7},{"n":"Potion of Flying","w":7},{"n":"Potion of Healing (supreme)","w":9},{"n":"Potion of Speed","w":7},{"n":"Tome of Leadership and Influence","w":7}],"Legendary":[{"n":"Enspelled Weapon (level 6, 7, or 8 spell)","w":17},{"n":"Instrument of the Bards (Ollamh harp)","w":17},{"n":"Sovereign Glue","w":20},{"n":"Sphere of Annihilation","w":16},{"n":"Talisman of the Sphere","w":13},{"n":"Universal Solvent","w":17}]},"Relics":{"Common":[{"n":"Ear Horn of Hearing","w":8},{"n":"Potion of Healing","w":20},{"n":"Pot of Awakening","w":8},{"n":"Ruby of the War Mage","w":8},{"n":"Shield of Expression","w":8},{"n":"Smoldering Armor","w":8},{"n":"Spell Scroll (cantrip or level 1 spell)","w":20},{"n":"Staff of Adornment","w":10},{"n":"Staff of Flowers","w":10}],"Uncommon":[{"n":"Enspelled Staff (cantrip or level 1 spell)","w":5},{"n":"Keoghtom’s Ointment","w":5},{"n":"Mariner’s Armor","w":5},{"n":"Nature’s Mantle","w":5},{"n":"Pearl of Power","w":5},{"n":"Periapt of Health","w":5},{"n":"Periapt of Wound Closure","w":5},{"n":"Potion of Animal Friendship","w":5},{"n":"Potion of Healing (greater)","w":15},{"n":"Potion of Resistance","w":5},{"n":"Ring of Water Walking","w":5},{"n":"Sending Stones","w":5},{"n":"Spell Scroll (level 2 or level 3 spell)","w":10},{"n":"Staff of the Adder","w":5},{"n":"Staff of the Python","w":5},{"n":"Wand of Magic Detection","w":5},{"n":"Wand of the War Mage, +1","w":5}],"Rare":[{"n":"Amulet of Health","w":3},{"n":"Armor, +1","w":4},{"n":"Bowl of Commanding Water Elementals","w":2},{"n":"Brazier of Commanding Fire Elementals","w":2},{"n":"Censer of Controlling Air Elementals","w":2},{"n":"Elixir of Health","w":3},{"n":"Enspelled Staff (level 2 or 3 spell)","w":3},{"n":"Horn of Blasting","w":3},{"n":"Horn of Valhalla (brass or silver)","w":3},{"n":"Ioun Stone (reserve or sustenance)","w":3},{"n":"Mace of Disruption","w":3},{"n":"Mace of Smiting","w":3},{"n":"Mace of Terror","w":3},{"n":"Necklace of Prayer Beads","w":3},{"n":"Periapt of Proof against Poison","w":3},{"n":"Potion of Healing (superior)","w":8},{"n":"Ring of Animal Influence","w":3},{"n":"Ring of Resistance","w":4},{"n":"Ring of Spell Storing","w":3},{"n":"Scroll of Protection","w":4},{"n":"Spell Scroll (level 4 or level 5 spell)","w":8},{"n":"Staff of Charming","w":3},{"n":"Staff of Healing","w":3},{"n":"Staff of Swarming Insects","w":3},{"n":"Staff of the Woodlands","w":3},{"n":"Staff of Withering","w":3},{"n":"Stone of Controlling Earth Elementals","w":2},{"n":"Tentacle Rod","w":3},{"n":"Wand of Paralysis","w":3},{"n":"Wand of the War Mage, +2","w":4}],"Very Rare":[{"n":"Armor, +2","w":5},{"n":"Candle of Invocation","w":5},{"n":"Cauldron of Rebirth","w":5},{"n":"Enspelled Staff (level 4 or 5 spell)","w":5},{"n":"Horn of Valhalla (bronze)","w":5},{"n":"Ioun Stone (insight)","w":5},{"n":"Manual of Bodily Health","w":5},{"n":"Potion of Healing (supreme)","w":8},{"n":"Potion of Vitality","w":7},{"n":"Rod of Alertness","w":5},{"n":"Spell Scroll (level 6, level 7, or level 8 spell)","w":10},{"n":"Spirit Board","w":5},{"n":"Staff of Fire","w":5},{"n":"Staff of Frost","w":5},{"n":"Staff of Striking","w":5},{"n":"Staff of Thunder and Lightning","w":5},{"n":"Tome of Understanding","w":5},{"n":"Wand of the War Mage, +3","w":5}],"Legendary":[{"n":"Armor of Invulnerability","w":8},{"n":"Armor, +3","w":10},{"n":"Enspelled Staff (level 6, 7, or 8 spell)","w":9},{"n":"Holy Avenger","w":9},{"n":"Horn of Valhalla (iron)","w":9},{"n":"Rod of Resurrection","w":9},{"n":"Scarab of Protection","w":9},{"n":"Scroll of Titan Summoning","w":9},{"n":"Spell Scroll (level 9 spell)","w":8},{"n":"Talisman of Pure Good","w":10},{"n":"Talisman of Ultimate Evil","w":10}]}};
+
+const TYPES = Object.keys(TABLES), RARS = ["Common","Uncommon","Rare","Very Rare","Legendary"];
+const norm = s => s.toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g," ").trim();
+const slug = s => norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") || "shop";
+const INDEX = {};
+TYPES.forEach(t => RARS.forEach(r => (TABLES[t][r]||[]).forEach(x => { const k = norm(x.n); if (!INDEX[k]) INDEX[k] = {name:x.n,type:t,rarity:r}; })));
+function lookup(name){
+  const k = norm(name||""); if (!k) return null;
+  if (INDEX[k]) return INDEX[k];
+  const m = Object.keys(INDEX).filter(x => x.startsWith(k));
+  return m.length === 1 ? INDEX[m[0]] : null;
+}
+
+/* Seeded random numbers: same seed => same stock for everyone. */
+function hashSeed(s){ let h = 1779033703 ^ s.length; for (let i=0;i<s.length;i++){ h = Math.imul(h ^ s.charCodeAt(i), 3432918353); h = h<<13 | h>>>19; } h = Math.imul(h ^ h>>>16, 2246822507); h = Math.imul(h ^ h>>>13, 3266489909); return (h ^= h>>>16) >>> 0; }
+function rng(seed){ let a = hashSeed(String(seed||"seed")); return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a>>>15, 1|a); t = t + Math.imul(t ^ t>>>7, 61|t) ^ t; return ((t ^ t>>>14) >>> 0) / 4294967296; }; }
+/* Normal-distributed price, fixed per shop seed + item so it never changes on reload. */
+function priceFor(shop, name, rarity){
+  const r = rng(String(shop.seed||"") + "|price|" + norm(name));
+  const z = Math.sqrt(-2 * Math.log(r() || 1e-9)) * Math.cos(2 * Math.PI * r());
+  const mean = PRICES[rarity] * (CONSUMABLE.test(norm(name)) ? 0.5 : 1);
+  return Math.max(10, Math.round(mean * (1 + PRICE_SPREAD * z) / 10) * 10);
+}
+const rotate = (arr, n) => arr.slice(n).concat(arr.slice(0,n));
+
+function generate(shop){
+  const rand = rng(shop.seed), out = [], seen = new Set(), notes = [];
+  (shop.guarantee||[]).forEach(g => {
+    const o = typeof g === "string" ? {name:g} : g, f = lookup(o.name) || {};
+    const it = { name: f.name || o.name, type: o.type || f.type || "", rarity: o.rarity || f.rarity || "Rare", desc: o.desc || "" };
+    it.price = o.price != null && o.price !== "" ? o.price : priceFor(shop, it.name, it.rarity);
+    it.unknown = !f.name && !o.rarity; seen.add(norm(it.name)); out.push(it);
+  });
+  (shop.roll||[]).forEach(row => {
+    for (let i=0; i<(row.count||0); i++){
+      const ts = row.type ? [row.type] : rotate(TYPES, Math.floor(rand()*TYPES.length));
+      const rs = row.rarity ? [row.rarity] : rotate(RARS, Math.floor(rand()*RARS.length));
+      let cands = [], t, r;
+      outer: for (t of ts) for (r of rs) { cands = ((TABLES[t]||{})[r]||[]).filter(x => !seen.has(norm(x.n))); if (cands.length) break outer; }
+      if (!cands.length){ notes.push("Ran out of unused " + (row.rarity||"any-rarity") + " " + (row.type||"") + " items — one slot left empty."); continue; }
+      let roll = rand() * cands.reduce((s,x) => s + x.w, 0), pick = cands[cands.length-1];
+      for (const x of cands){ roll -= x.w; if (roll < 0){ pick = x; break; } }
+      seen.add(norm(pick.n)); out.push({ name:pick.n, type:t, rarity:r, price:priceFor(shop, pick.n, r), desc:"" });
+    }
+  });
+  out.sort((a,b) => RARS.indexOf(a.rarity) - RARS.indexOf(b.rarity) || a.name.localeCompare(b.name));
+  return { items: out, notes };
+}
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const gp = n => Number(n).toLocaleString() + " GP";
+const DM = /[?&]dm\b/.test(location.search);
+let W; // DM working copy
+
+function renderShop(shop, clickable){
+  const {items, notes} = generate(shop), sold = new Set((shop.sold||[]).map(norm));
+  document.getElementById("shop").innerHTML =
+    '<div class="shop-header"><div class="shop-name">' + esc(shop.name||"") + '</div><div class="shop-meta">City: ' + esc(shop.city||"") + '</div></div>' +
+    '<div class="item-list">' + (items.map((it,i) =>
+      '<div class="item-card' + (sold.has(norm(it.name)) ? ' sold' : '') + '"' + (clickable ? ' data-sold="' + i + '" style="cursor:pointer" title="Click to mark sold / unsold"' : '') + '>' +
+      '<div class="item-top"><div class="item-name-wrap"><span class="item-name">' + esc(it.name) + '</span><span class="tag ' + it.rarity.split(" ")[0] + '">' + it.rarity + '</span>' + (it.type ? '<span class="tag type">' + it.type + '</span>' : '') + '</div><span class="item-price">' + gp(it.price) + '</span></div>' +
+      (it.desc ? '<div class="item-desc">' + esc(it.desc) + '</div>' : '') + '</div>').join("") || '<div class="item-desc">The shelves are bare.</div>') + '</div>';
+  document.getElementById("notes").innerHTML = notes.map(esc).join("<br>");
+  return items;
+}
+
+if (!DM){
+  const shop = SHOPS.find(s => s.id === ACTIVE_SHOP);
+  if (shop) renderShop(shop, false); else document.getElementById("shop").innerHTML = '<div class="item-desc">No shop is open right now.</div>';
+} else {
+  document.body.classList.add("dm-on");
+  const dm = document.getElementById("dm");
+  const opt = (arr, cur, any) => (any ? '<option value="">' + any + '</option>' : '') + arr.map(x => '<option' + (x === cur ? ' selected' : '') + '>' + x + '</option>').join("");
+  const newSeed = () => ["amber","ivory","cobalt","ember","moss","raven","saffron","slate"][Math.floor(Math.random()*8)] + "-" + ["fox","owl","stag","wolf","hare","crow","lynx","boar"][Math.floor(Math.random()*8)] + "-" + Math.floor(Math.random()*900+100);
+  const load = id => { const s = SHOPS.find(x => x.id === id); W = JSON.parse(JSON.stringify(s || { name:"New Shop", city:"", seed:newSeed(), roll:[{count:3,rarity:"Common"}], guarantee:[], sold:[] })); };
+  load(ACTIVE_SHOP);
+
+  dm.innerHTML =
+    '<h3>DM Workbench</h3><div class="hint">Only you see this (page opened with ?dm). Players see the saved shop named in ACTIVE_SHOP.</div>' +
+    '<div class="row"><label>Load:</label><select id="pick">' + SHOPS.map(s => '<option value="' + s.id + '">' + esc(s.name) + '</option>').join("") + '<option value="">+ New shop</option></select></div>' +
+    '<div class="row"><input class="grow" data-top="name" placeholder="Shop name"><input class="grow" data-top="city" placeholder="City"></div>' +
+    '<div class="row"><label>Seed:</label><input class="grow" data-top="seed"><button id="reroll">Re-roll stock</button></div>' +
+    '<h3>Roll this many…</h3><div id="rolls"></div><button class="ghost" id="addroll">+ Add row</button>' +
+    '<h3>Guaranteed items</h3><datalist id="all">' + Object.values(INDEX).map(x => '<option value="' + esc(x.name) + '">').join("") + '</datalist><div id="guars"></div><button class="ghost" id="addg">+ Add guaranteed item</button>' +
+    '<h3>Shop config</h3><div class="hint">Click items in the preview below to mark them sold. When happy, copy this and paste it into SHOPS (replacing the old entry for this shop), then set ACTIVE_SHOP to <b id="idout"></b>.</div>' +
+    '<textarea id="out" readonly></textarea><div class="row"><button id="copy">Copy shop config</button><span id="copied" class="hint"></span></div>';
+
+  const warnText = g => (g.name && !g.rarity && !lookup(g.name)) ? "Not in the tables — pick a rarity (defaults to Rare)." : "";
+  const rows = () => {
+    document.getElementById("rolls").innerHTML = W.roll.map((r,i) => '<div class="row"><input type="number" min="0" data-l="roll" data-i="' + i + '" data-f="count" value="' + (r.count||0) + '"><select data-l="roll" data-i="' + i + '" data-f="rarity">' + opt(RARS, r.rarity, "Any rarity") + '</select><select data-l="roll" data-i="' + i + '" data-f="type">' + opt(TYPES, r.type, "Any type") + '</select><button class="ghost" data-del="roll" data-i="' + i + '">✕</button></div>').join("");
+    document.getElementById("guars").innerHTML = W.guarantee.map((g,i) => { g = typeof g === "string" ? {name:g} : g; const known = !!lookup(g.name); return '<div class="row"><input class="grow" list="all" placeholder="Item name" data-l="guarantee" data-i="' + i + '" data-f="name" value="' + esc(g.name||"") + '"><input type="number" style="width:90px" placeholder="price" data-l="guarantee" data-i="' + i + '" data-f="price" value="' + (g.price != null ? g.price : "") + '"><select data-l="guarantee" data-i="' + i + '" data-f="rarity">' + opt(RARS, g.rarity, "Rarity: auto") + '</select><input class="grow" placeholder="Description (optional)" data-l="guarantee" data-i="' + i + '" data-f="desc" value="' + esc(g.desc||"") + '"><button class="ghost" data-del="guarantee" data-i="' + i + '">✕</button>' + '<span class="warn" data-warn="' + i + '">' + warnText(g) + '</span>' + '</div>'; }).join("");
+  };
+  const clean = () => {
+    const o = { id: slug(W.name), name: W.name, city: W.city, seed: W.seed,
+      roll: W.roll.filter(r => r.count > 0).map(r => { const x = {count:r.count}; if (r.rarity) x.rarity = r.rarity; if (r.type) x.type = r.type; return x; }),
+      guarantee: W.guarantee.filter(g => (typeof g === "string" ? g : g.name)).map(g => { if (typeof g === "string") return g; const x = {name:g.name}; ["price","rarity","type","desc"].forEach(k => { if (g[k] !== undefined && g[k] !== "") x[k] = g[k]; }); return Object.keys(x).length === 1 ? x.name : x; }),
+      sold: W.sold || [] };
+    return o;
+  };
+  const refresh = () => {
+    const c = clean();
+    document.getElementById("out").value = JSON.stringify(c, null, 2);
+    document.getElementById("idout").textContent = '"' + c.id + '"';
+    W.items = renderShop(c, true);
+  };
+  const fill = () => { dm.querySelectorAll("[data-top]").forEach(el => el.value = W[el.dataset.top] || ""); rows(); refresh(); };
+  fill();
+
+  dm.addEventListener("input", e => {
+    const t = e.target;
+    if (t.dataset.top) W[t.dataset.top] = t.value;
+    else if (t.dataset.l){
+      const list = W[t.dataset.l], i = +t.dataset.i, f = t.dataset.f;
+      if (t.dataset.l === "guarantee" && typeof list[i] === "string") list[i] = {name:list[i]};
+      let v = t.value;
+      if (f === "count") v = parseInt(v) || 0;
+      if (f === "price") v = v === "" ? undefined : Number(v);
+      if (v === "" || v === undefined) delete list[i][f]; else list[i][f] = v;
+      if (t.dataset.l === "guarantee" && (f === "name" || f === "rarity")) dm.querySelector('[data-warn="' + i + '"]').textContent = warnText(list[i]);
+    } else return;
+    refresh();
+  });
+  dm.addEventListener("click", e => {
+    const t = e.target;
+    if (t.id === "reroll"){ W.seed = newSeed(); fill(); }
+    else if (t.id === "addroll"){ W.roll.push({count:1}); rows(); refresh(); }
+    else if (t.id === "addg"){ W.guarantee.push({name:""}); rows(); refresh(); }
+    else if (t.dataset.del){ W[t.dataset.del].splice(+t.dataset.i, 1); rows(); refresh(); }
+    else if (t.id === "copy"){ const ta = document.getElementById("out"); ta.select(); (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject()).then(() => document.getElementById("copied").textContent = "Copied!").catch(() => { document.execCommand("copy"); document.getElementById("copied").textContent = "Copied!"; }); }
+  });
+  dm.addEventListener("change", e => { if (e.target.id === "pick"){ load(e.target.value); fill(); } });
+  document.getElementById("shop").addEventListener("click", e => {
+    const card = e.target.closest("[data-sold]"); if (!card) return;
+    const name = W.items[+card.dataset.sold].name, k = norm(name);
+    W.sold = W.sold || [];
+    const idx = W.sold.findIndex(x => norm(x) === k);
+    if (idx >= 0) W.sold.splice(idx, 1); else W.sold.push(name);
+    refresh();
+  });
+}
+</script>
+</body>
+</html>
