@@ -134,8 +134,20 @@
     display:flex;
     justify-content:space-between;
     align-items:baseline;
+    gap:14px;
     font-size:18px;
     color:var(--text-main);
+  }
+
+  .char-name-row span:first-child{
+    min-width:0;
+    overflow-wrap:anywhere;
+  }
+
+  .char-name-row span:last-child{
+    flex:none;
+    white-space:nowrap;
+    color:var(--text-dim);
   }
 
   .char-class{
