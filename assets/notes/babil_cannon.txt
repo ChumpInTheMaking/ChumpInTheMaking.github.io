@@ -1,0 +1,59 @@
+# Babil Cannon
+*Huge Construct, Unaligned*
+
+A monstrous siege weapon built into the Tower of Babil's superstructure, the Babil Cannon exists for one purpose: to annihilate anything in the valley below. It has no mind, no mercy, and no capacity for negotiation. It simply charges, and then it fires.
+
+---
+
+**Armor Class** 16 (Reinforced Housing)
+**Initiative** -3 (7)
+**Hit Points** 136 (13d12 + 52)
+**Speed** 0 ft. (immobile, fixed to the tower structure)
+
+| STR | DEX | CON | INT | WIS | CHA |
+|---|---|---|---|---|---|
+| +6 (22) | -3 (4) | +4 (18) | — | — | — |
+
+**Saving Throws** Con +7
+**Damage Immunities** Poison, Psychic, Fire, Lightning
+**Condition Immunities** Blinded, Charmed, Deafened, Exhaustion, Frightened, Incapacitated, Paralyzed, Petrified, Poisoned, Prone, Stunned, Unconscious
+**Senses** Blindsight 300 ft. (blind beyond this radius), Passive Perception 10
+**Languages** —
+**Challenge Rating** 7 (XP 2,900; PB +3)
+
+---
+
+### Traits
+
+**Siege Engine.** The Babil Cannon deals double damage to objects and structures. It can target creatures and objects up to 300 feet away, ignoring half and three-quarters cover but not total cover.
+
+**Fixed Emplacement.** The cannon cannot move, be moved, or be repositioned by any means short of destroying the structure it is built into. It automatically succeeds on all saving throws against effects that would move it.
+
+**Operator Dependent.** The cannon has no mind of its own. On each of its turns, it acts only if at least one creature is actively operating it (within 5 feet of its control housing and using their action to do so). Without an operator, it takes no actions but can still be targeted and damaged. Destroying the control housing (AC 12, HP 25) disables the cannon permanently — it can no longer fire even with an operator.
+
+**Charge Cycle.** The cannon doesn't fire immediately. It requires one full turn to charge (during which a faint hum builds and the barrel glows with increasing intensity) before it can fire on its next turn. It alternates: Charge turn, Fire turn, Charge turn, Fire turn. If the operator is removed mid-charge, the charge dissipates harmlessly and must begin again.
+
+**Vulnerable Core.** Despite its Damage Immunities, the Babil Cannon has Vulnerability to Bludgeoning damage dealt by a creature that is physically inside the cannon's barrel or housing (representing a character sabotaging it from within).
+
+---
+
+### Actions
+
+**Charge.** The cannon's barrel illuminates and a deep vibration resonates through the floor. No damage is dealt this turn. All creatures within 300 feet who can see or hear the cannon are aware it will fire on the cannon's next turn.
+
+**Babil Beam.** The cannon fires a concentrated beam of destructive energy in a 300-foot Line that is 10 feet wide. Each creature in that Line must make a DC 15 Dexterity saving throw, taking 45 (10d8) Radiant damage on a failure, or half as much on a success. Creatures reduced to 0 Hit Points by this damage are disintegrated — their body and equipment are destroyed, and they can only be restored by a Wish spell. *(DMs running a less punishing game may remove the disintegration clause without affecting the overall difficulty.)*
+
+**Suppression Burst (Recharge 5–6, can replace either a Charge or Fire turn).** The cannon vents built-up energy sideways through exhaust ports, targeting creatures near the base of the tower rather than at range. Each creature within 20 feet of the cannon must make a DC 15 Constitution saving throw, taking 21 (6d6) Thunder damage and being knocked Prone on a failure, or taking half damage and not being knocked Prone on a success. This does not interrupt the Charge Cycle — the cannon still fires its Babil Beam on the following turn as normal.
+
+---
+
+### Tactics
+
+The cannon has no independent agency — it simply charges and fires in a straight line, targeting the largest visible cluster of enemies within range. Its operator (if any) chooses the Line's direction each turn. The party's real objective is typically not to survive the beam indefinitely but to destroy the control housing or reach and disable the cannon before it can fire again — a race against the Charge Cycle rather than a sustained fight. A party member who physically enters the barrel housing gains access to the Vulnerable Core, which is the fastest way to bring the cannon down but requires getting past any guards defending the structure.
+
+**Without guards:** The cannon is a CR 7 environmental hazard, manageable at mid levels if the party prioritizes destroying the control housing.
+**With guards:** Add appropriate CR 3–5 operators and soldiers to protect the housing, turning the encounter into a layered objective fight — the party must handle the guards and destroy the cannon before the beam fires again.
+
+### Suggested Tier
+
+A strong environmental set-piece encounter for a party of four level 7–8 characters. Works best not as a straight combat but as a timed objective: the party has X rounds before the cannon fires on an allied army, civilian population, or a fortress below — forcing them to move fast and prioritize destruction over careful resource management.
