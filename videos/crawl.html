@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Journey Begins!</title>
+
+<!-- Pixel font (falls back to a monospace if it can't load) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     EASY SETTINGS - tweak these
+     ============================================================ */
+  :root {
+    --bg-image: url("images/backgrounds/baron_castle.webp");   /* <-- your background image */
+    --text-color: #ffffff;
+    --font-size: clamp(11px, 2.1vw, 20px);
+    --line-height: 2.2;
+    --column-width: min(86vw, 38em);     /* width of the text column */
+    --dim: 0.45;                         /* 0 = no darkening, 1 = black */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: "Press Start 2P", "Courier New", ui-monospace, monospace;
+    color: var(--text-color);
+  }
+
+  /* ---------- Background ---------- */
+  #bg {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-image) center / cover no-repeat, #000;
+    opacity: 0;
+    transition: opacity 3s ease;
+  }
+  #bg::after {                       /* darkening layer so text stays readable */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, var(--dim));
+  }
+  body.playing #bg,
+  body.finished #bg { opacity: 1; }
+  body.skipped #bg { opacity: 0; transition-duration: 1.2s; }   /* skip = fade to black */
+
+  /* ---------- Crawl ---------- */
+  #stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;   /* keep the text block its real height (not stretched to the screen) */
+    overflow: hidden;
+    /* Text is only visible between a soft fade at the top and the "reveal line".
+       Anything below the reveal line stays hidden until it scrolls up past it.
+       --reveal-line and --reveal-soft are set from the script settings. */
+    --reveal-line: 88%;
+    --reveal-soft: 12%;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 calc(var(--reveal-line) - var(--reveal-soft)), transparent var(--reveal-line));
+            mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 calc(var(--reveal-line) - var(--reveal-soft)), transparent var(--reveal-line));
+  }
+
+  #crawl {
+    width: var(--column-width);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    text-align: center;                 /* change to center if you prefer */
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.85);
+    will-change: transform;
+    transform: translateY(100vh);
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    padding-bottom: 20vh;
+  }
+  #crawl p { margin-bottom: 12em; }
+
+  /* ---------- Start screen ---------- */
+  #start {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2.4em;
+    background: #000;
+    transition: opacity 1.2s ease;
+    padding: env(safe-area-inset-top, 0) 1em env(safe-area-inset-bottom, 0);
+  }
+  body.playing #start,
+  body.finished #start { opacity: 0; pointer-events: none; }
+
+  #start h1 {
+    font-size: clamp(14px, 3.4vw, 28px);
+    font-weight: normal;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* FF-style menu window: blue gradient, white border */
+  .window {
+    font: inherit;
+    font-size: clamp(11px, 2vw, 16px);
+    color: #fff;
+    background: linear-gradient(to bottom, #1b2bb8, #0a0f5c);
+    border: 3px solid #fff;
+    border-radius: 6px;
+    padding: 1em 1.8em 1em 2.6em;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 0 0 3px #000, 0 0 0 5px #8a8fd8;
+    text-shadow: 2px 2px 0 #000;
+  }
+  .window::before {                  /* pointing-hand style cursor */
+    content: "\25B6";
+    position: absolute;
+    left: 0.9em;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: blink 1s steps(2) infinite;
+  }
+  .window:hover, .window:focus-visible { background: linear-gradient(to bottom, #2c3fe0, #10187f); outline: none; }
+  .window:focus-visible { box-shadow: 0 0 0 3px #000, 0 0 0 5px #ffe66b; }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- Controls (top-right, appear after start) ---------- */
+  #controls {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    right: 12px;
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 1s ease 1s;
+  }
+  body.playing #controls,
+  body.finished #controls { opacity: 0.55; }
+  #controls:hover, #controls:focus-within { opacity: 1; }
+  #controls .window {
+    font-size: 10px;
+    padding: 0.7em 1em;
+  }
+  #controls .window::before { display: none; }
+
+  /* ---------- Ending ---------- */
+  #end {
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2em;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 3s ease;
+  }
+  body.finished #end { opacity: 1; pointer-events: auto; }
+  #end h2 {
+    font-size: clamp(16px, 4vw, 34px);
+    font-weight: normal;
+    line-height: 1.8;
+    text-shadow: 3px 3px 0 #000;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .window::before { animation: none; }
+  }
+</style>
+</head>
+
+<body>
+
+<div id="bg"></div>
+
+<!-- ============================================================
+     THE CRAWL TEXT
+     One <p> per paragraph. Replace everything inside #crawl.
+     ============================================================ -->
+<div id="stage" aria-live="off">
+  <div id="crawl">
+    <p>And so, the five and their captain were stripped of their positions in the Red Wings. Instead, they head for the foggy valley and the village of Mist. </p>
+    <p>The advent of the airship marked the realization of Baron's dreams, but also the birth of its militarism. With its Royal Air Force, the Red Wings, Baron soon reigned supreme.</p>
+    <p>Now, as monsters multiply and stir unrest, Baron only exploits its power to collect the world's Crystals.</p>
+    <p>Why?</p>
+    <p>The Crystals merely shed their light in silence...</p>
+  </div>
+</div>
+
+<!-- Shown when the crawl ends. Edit or delete. -->
+<div id="end">
+  <h2>The Journey Begins!</h2>
+  <button class="window" id="replay2" type="button">Read Again</button>
+</div>
+
+<div id="controls">
+  <button class="window" id="mute" type="button" aria-pressed="false">Sound: On</button>
+  <button class="window" id="skip" type="button">Skip</button>
+</div>
+
+<div id="start">
+  <h1>The Blue Planet<br>Prologue</h1>
+  <button class="window" id="begin" type="button">Begin</button>
+</div>
+
+<!-- ============================================================
+     YOUR MUSIC - replace music.mp3 with your file name
+     ============================================================ -->
+<audio id="music" src="music/prologue.mp3" preload="auto" loop></audio>
+
+<script>
+(function () {
+  // ============================================================
+  // SETTINGS
+  // ============================================================
+  const SPEED_PX_PER_SEC = 35;     // scroll speed - raise to go faster
+  const START_HEIGHT_PCT = 50;    // the "reveal line": text appears as it passes this
+                                   // height (% of screen from the top) and is hidden
+                                   // below it. 100 = bottom edge, 70 = lower third,
+                                   // 50 = middle. Lower = fewer lines visible at once.
+  const REVEAL_SOFT_PCT  = 8;      // how soft the fade-in is at the reveal line
+                                   // (0 = hard edge, larger = longer fade)
+  const START_DELAY_MS   = 15500;   // pause on the background before text appears
+  const FADE_OUT_MS      = 4000;   // how long the music fades after the crawl ends
+  const MUSIC_VOLUME     = 0.8;    // 0 to 1
+  // ============================================================
+
+  const body   = document.body;
+  const stage  = document.getElementById('stage');
+  stage.style.setProperty('--reveal-line', START_HEIGHT_PCT + '%');
+  stage.style.setProperty('--reveal-soft', Math.max(0, Math.min(REVEAL_SOFT_PCT, START_HEIGHT_PCT - 12)) + '%');
+  const crawl  = document.getElementById('crawl');
+  const music  = document.getElementById('music');
+  const beginB = document.getElementById('begin');
+  const skipB  = document.getElementById('skip');
+  const muteB  = document.getElementById('mute');
+  const replay = document.getElementById('replay2');
+
+  let rafId = null, startTime = 0, distance = 0, running = false, fadeId = null;
+
+  function setVolume(v) { try { music.volume = Math.max(0, Math.min(1, v)); } catch (e) {} }
+
+  function startY() {
+    return window.innerHeight * (START_HEIGHT_PCT / 100);
+  }
+
+  function measure() {
+    // text travels from its start position until fully above the screen
+    distance = startY() + Math.max(crawl.offsetHeight, crawl.scrollHeight);
+  }
+
+  function frame(now) {
+    if (!running) return;
+    const elapsed = (now - startTime) / 1000;
+    const travelled = elapsed * SPEED_PX_PER_SEC;
+    crawl.style.transform = 'translateY(' + (startY() - travelled) + 'px)';
+    if (travelled >= distance) { finish(); return; }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function startCrawl() {
+    cancelAnimationFrame(rafId);
+    clearInterval(fadeId);
+    body.classList.remove('finished', 'skipped');
+    body.classList.add('playing');
+    measure();
+    crawl.style.transition = 'none';
+    crawl.style.opacity = 0;
+    crawl.style.transform = 'translateY(100vh)';
+    void crawl.offsetWidth;             // apply the reset instantly
+    crawl.style.transition = '';
+
+    setVolume(MUSIC_VOLUME);
+    music.currentTime = 0;
+    const p = music.play();
+    if (p && p.catch) p.catch(function () {});
+
+    running = true;
+    setTimeout(function () {
+      if (!running) return;
+      crawl.style.transform = 'translateY(' + startY() + 'px)';
+      crawl.style.opacity = 1;          // gentle fade-in at the start position
+      startTime = performance.now();
+      rafId = requestAnimationFrame(frame);
+    }, START_DELAY_MS);
+  }
+
+  function finish() {
+    running = false;
+    cancelAnimationFrame(rafId);
+    crawl.style.transition = 'opacity 0.6s ease';
+    crawl.style.opacity = 0;            // make sure no crawl text is left on screen
+    body.classList.add('finished');
+    fadeMusic();
+  }
+
+  function skip() {
+    running = false;
+    cancelAnimationFrame(rafId);
+    crawl.style.transition = 'opacity 0.6s ease';
+    crawl.style.opacity = 0;            // crawl text vanishes
+    body.classList.add('skipped');      // background fades to black
+    body.classList.add('finished');
+    fadeMusic();
+  }
+
+  function fadeMusic() {
+    clearInterval(fadeId);
+    const from = music.volume, steps = 40, step = FADE_OUT_MS / steps;
+    let i = 0;
+    fadeId = setInterval(function () {
+      i++;
+      setVolume(from * (1 - i / steps));
+      if (i >= steps) { clearInterval(fadeId); music.pause(); }
+    }, step);
+  }
+
+  beginB.addEventListener('click', startCrawl);
+  replay.addEventListener('click', startCrawl);
+
+  skipB.addEventListener('click', function () {
+    if (running || !body.classList.contains('finished')) skip();
+  });
+
+  muteB.addEventListener('click', function () {
+    music.muted = !music.muted;
+    muteB.textContent = 'Sound: ' + (music.muted ? 'Off' : 'On');
+    muteB.setAttribute('aria-pressed', music.muted);
+  });
+
+  // Keyboard: Space/Enter to begin, Esc to skip
+  document.addEventListener('keydown', function (e) {
+    if (!body.classList.contains('playing') && !body.classList.contains('finished')) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startCrawl(); }
+    } else if (e.key === 'Escape' && running) {
+      skip();
+    }
+  });
+
+  window.addEventListener('resize', function () { if (running) measure(); });
+})();
+</script>
+</body>
+</html>
