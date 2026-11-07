@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red Wings - Sketches</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+  :root{
+    --panel-top:#1a1f4d;
+    --panel-bottom:#0a0e2e;
+    --border-outer:#f5e6b8;
+    --border-inner:#8a6d2f;
+    --text-main:#f4f0e2;
+    --text-dim:#a9a7c9;
+    --accent-gold:#f0c85a;
+    --divider:#3a3f7a;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    min-height:100%;
+    background:#05061a;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(60,50,120,0.5), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(30,60,90,0.4), transparent 60%);
+    background-attachment:fixed;
+    font-family:'VT323', monospace;
+    color:var(--text-main);
+  }
+
+  body{ padding:24px; }
+
+  .frame{ width:100%; max-width:920px; margin:0 auto; }
+
+  .campaign-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    letter-spacing:1px;
+    color:var(--accent-gold);
+    text-align:center;
+    margin:0 0 18px;
+    text-shadow:2px 2px 0 #000;
+  }
+
+  .campaign-sub{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:16px;
+    margin:-14px 0 20px;
+  }
+
+  .back-link{
+    display:inline-block;
+    margin-bottom:14px;
+    color:var(--text-main);
+    text-decoration:none;
+    font-size:17px;
+  }
+  .back-link:hover,.back-link:focus-visible{ color:var(--accent-gold); outline:none; }
+
+  .board{
+    border:3px solid var(--border-outer);
+    outline:3px solid var(--border-inner);
+    outline-offset:-6px;
+    border-radius:4px;
+    background:linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+    box-shadow:0 0 0 6px #000, 0 20px 40px rgba(0,0,0,0.6);
+    padding:22px;
+  }
+
+  .sketch-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+    gap:16px;
+  }
+
+  .sketch-card{
+    margin:0;
+    border:1px solid var(--divider);
+    border-radius:4px;
+    background:rgba(255,255,255,0.02);
+    overflow:hidden;
+    transition:border-color 0.12s ease, background 0.12s ease;
+  }
+
+  .sketch-card:hover,
+  .sketch-card:focus-within{
+    border-color:var(--accent-gold);
+    background:rgba(240,200,90,0.08);
+  }
+
+  .sketch-card a{ display:block; color:inherit; text-decoration:none; outline:none; }
+
+  .sketch-card img{
+    display:block;
+    width:100%;
+    aspect-ratio:3 / 4;
+    object-fit:cover;
+    background:#0a0e2e;
+  }
+
+  .sketch-card figcaption{
+    padding:8px 10px 10px;
+    border-top:1px solid var(--divider);
+  }
+
+  .sketch-name{ font-size:19px; color:var(--text-main); }
+  .sketch-card:hover .sketch-name,
+  .sketch-card:focus-within .sketch-name{ color:var(--accent-gold); }
+  .sketch-note{ font-size:14px; color:var(--text-dim); }
+
+  .empty{
+    grid-column:1 / -1;
+    text-align:center;
+    padding:40px 16px;
+    border:2px dashed var(--border-inner);
+    border-radius:4px;
+    color:var(--text-dim);
+    font-size:18px;
+  }
+
+  @media (max-width:600px){
+    .campaign-title{ font-size:11px; }
+    .sketch-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <a class="back-link" href="index.html">◀ Back</a>
+  <h1 class="campaign-title">Red Wings</h1>
+  <p class="campaign-sub">— Sketches —</p>
+
+  <div class="board">
+    <div class="sketch-grid">
+
+      <!--
+        TO ADD A SKETCH:
+        1. Put the image in images/sketches/ (e.g. images/sketches/vellora.png)
+        2. Copy the <figure> block below, paste it inside this grid, and edit the
+           image path, alt text, name, and note. Delete the "empty" box once you
+           have your first sketch.
+
+      <figure class="sketch-card">
+        <a href="images/sketches/vellora.png" target="_blank" rel="noopener">
+          <img src="images/sketches/vellora.png" alt="Sketch of Vellora">
+          <figcaption>
+            <div class="sketch-name">Vellora</div>
+            <div class="sketch-note">Warrior of Mercy</div>
+          </figcaption>
+        </a>
+      </figure>
+      -->
+      <figure class="sketch-card">
+        <a href="images/sketches/roland1.png" target="_blank" rel="noopener">
+          <img src="images/sketches/roland1.png" alt="Sketch of Roland">
+          <figcaption>
+            <div class="sketch-name">Roland</div>
+            <div class="sketch-note">Dark Knight of Baron</div>
+          </figcaption>
+        </a>
+      </figure>
+
+      <figure class="sketch-card">
+        <a href="images/sketches/vellora1.png" target="_blank" rel="noopener">
+          <img src="images/sketches/vellora1.png" alt="Sketch of Vellora">
+          <figcaption>
+            <div class="sketch-name">Vellora</div>
+            <div class="sketch-note">Disciple of Fabul</div>
+          </figcaption>
+        </a>
+      </figure>
+
+      <figure class="sketch-card">
+        <a href="images/sketches/lars1.png" target="_blank" rel="noopener">
+          <img src="images/sketches/lars1.png" alt="Sketch of Lars">
+          <figcaption>
+            <div class="sketch-name">Lars</div>
+            <div class="sketch-note">Baron Infiltrator</div>
+          </figcaption>
+        </a>
+      </figure>
+
+  </div>
+</div>
+</body>
+</html>
